@@ -18,13 +18,22 @@ public class Drive {
 	}
 
 	private static void createAssetContentsRepairDetails(Management management) {
-		AssetContentsRepairDetails AssetreturnObject= (AssetContentsRepairDetails)returnObject ("AssetContentsRepairDetails.xml","AssetContentsRepairDetails.class");
-		List<AssetContentsRepairDetails.AssetContent> list = AssetreturnObject
-				.getAssetContent();
+		AssetContentsRepairDetails allAssetContents= (AssetContentsRepairDetails)returnObject ("AssetContentsRepairDetails.xml","AssetContentsRepairDetails.class");
+		List<AssetContentsRepairDetails.AssetContent> list = allAssetContents.getAssetContent();
 		for (AssetContentsRepairDetails.AssetContent assetContent : list) {
-			ArrayList assetContent.getName();
-			assetContent.getTools();
-			assetContent.getMaterials();
+			RepairToolInformation tools=new RepairToolInformation(assetContent.getName());
+			List<AssetContentsRepairDetails.AssetContent.Tools.Tool> toolList=assetContent.getTools().getTool();
+			for(AssetContentsRepairDetails.AssetContent.Tools.Tool tool: toolList){
+				tools.addRepairTool(tool.getName(), tool.getQuantity());
+				}
+			
+			RepairMaterialInformation materials=new RepairMaterialInformation (assetContent.getName());
+			List<AssetContentsRepairDetails.AssetContent.Materials.Material> materialList=assetContent.getMaterials().getMaterial();
+			for(AssetContentsRepairDetails.AssetContent.Materials.Material material: materialList){
+				materials.addRepairTool(material.getName(), material.getQuantity());
+				}
+
+			management.addItemRepairMaterial(assetContent.getName(), materials);
 		}
 	}
 
