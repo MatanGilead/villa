@@ -13,7 +13,7 @@ public class RepairMaterialInformation {
 		fMaterials = new ArrayList<RepairMaterial>();
 	}
 
-	public void addRepairTool(String name, int quantity) {
+	public void addRepairMaterial(String name, int quantity) {
 		fMaterials.add(new RepairMaterial(name, quantity));
 	}
 }

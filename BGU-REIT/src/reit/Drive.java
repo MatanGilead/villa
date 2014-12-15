@@ -14,7 +14,7 @@ public class Drive {
 		Management management = new Management();
 		createAssetContentsRepairDetails(management);
 
-		management.start();
+		// management.start();
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class Drive {
 			RepairMaterialInformation materials=new RepairMaterialInformation (assetContent.getName());
 			List<AssetContentsRepairDetails.AssetContent.Materials.Material> materialList=assetContent.getMaterials().getMaterial();
 			for(AssetContentsRepairDetails.AssetContent.Materials.Material material: materialList){
-				materials.addRepairTool(material.getName(), material.getQuantity());
+				materials.addRepairMaterial(material.getName(), material.getQuantity());
 				}
 
 			management.addItemRepairTool(assetContent.getName(), tools);
