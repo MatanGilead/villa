@@ -4,22 +4,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import test.Warehouse;
 
 public class Management {
 
-	private Assets assets;
-	private Warehouse warehouse;
-	private Vector<ClerkDetails> clerkDetails;
-	private Vector<CustomerGroupDetails> customerGroupDetails;
-	private HashMap<String, ArrayList<RepairMaterialInformation>> repairMaterialsInfo;
-	private HashMap<String, ArrayList<RepairToolInformation>> repairToolsInfo;
-	private Statistics statistics;
-	private BlockingQueue<RentalRequest> rentalRequests;
+	private Assets fAssets;
+	private Warehouse fWarehouse;
+	private ArrayList<ClerkDetails> fClerkDetails;
+	private ArrayList<CustomerGroupDetails> fCustomerGroupDetails;
+	private HashMap<String, ArrayList<RepairMaterialInformation>> fRepairMaterialsInfo;
+	private HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo;
+	private Statistics fStatistics;
+	private BlockingQueue<RentalRequest> fRentalRequests;
 	private Semaphore fMaintancePersons; //used for maitance threads
+	private int fTotalNumberOfRentalRequest;
+	private CountDownLatch fCountDownLatch;
 	// RunnableMaintenanceRequest blocking queue---semaphore--
 	//we will use countDownLatch, set to num of rentalRequests to printout statistics.. we will do -1 whan the rental will complete
 	//every Runnable clerk will know  if he needs to continue his life cycle by his rental requests number------------
@@ -37,14 +42,15 @@ public class Management {
 
 
 	public Management() {
-		assets=new Assets();
-		warehouse=new Warehouse();
-		clerkDetails=new Vector<ClerkDetails>();
-		customerGroupDetails=new Vector<CustomerGroupDetails>();
-		repairMaterialsInfo = new HashMap<String, ArrayList<RepairMaterialInformation>>();
-		repairToolsInfo=new HashMap<String, ArrayList<RepairToolInformation>>();
-		statistics=new Statistics();
-		rentalRequests = new LinkedBlockingQueue<RentalRequest>();
+		fAssets=new Assets();
+		fWarehouse=new Warehouse();
+		fClerkDetails=new ArrayList<ClerkDetails>();
+		fCustomerGroupDetails=new ArrayList<CustomerGroupDetails>();
+		fRepairMaterialsInfo = new HashMap<String, ArrayList<RepairMaterialInformation>>();
+		fRepairToolsInfo=new HashMap<String, ArrayList<RepairToolInformation>>();
+		fStatistics=new Statistics();
+		fRentalRequests = new LinkedBlockingQueue<RentalRequest>();
+		
 
 	}
 	public void addMaintancePersons(int numOfMaintancePersons) {
@@ -53,24 +59,23 @@ public class Management {
 	public void FixAsset(DamageReport report) 
 	{
 		
-		///send to fix after that line
-		try {
-			fMaintancePersons.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		///create runnablemaintence 
+
 		//release thread
-		fMaintancePersons.release();
 
 	}
+	
+	
+
+	
 
 	public void addCustomerGroup(CustomerGroupDetails customerGroup) {
-		customerGroupDetails.add(customerGroup);
+		fCustomerGroupDetails.add(customerGroup);
 	}
 
 	public void addItemRepairTool(String name, ArrayList<RepairToolInformation> toolList) {
 
-		repairToolsInfo.put(name, toolList);
+		fRepairToolsInfo.put(name, toolList);
 	}
 	/*	ArrayList<RepairToolInformation> toolList = repairToolsInfo.get(name);
 		if (!(toolList == null))
@@ -86,7 +91,7 @@ public class Management {
 
 
 	public void addItemRepairMaterial(String name, ArrayList<RepairMaterialInformation> materialList) {
-		repairMaterialsInfo.put(name, materialList);
+		fRepairMaterialsInfo.put(name, materialList);
 	}
 	
 	/*
@@ -98,10 +103,38 @@ public class Management {
 		
 
 	public void start() {
-		for(CustomerGroupDetails group: customerGroupDetails){
-			new RunableMaintanceRequest()
+		createRunnableCustomersGroup();
+		createRunnableClerk();
+		fStatistics.print();
 	}
+	private void createRunnableClerk() {
+		Object lock=new Object();
+		AtomicInteger NumOfClerks=new AtomicInteger(fClerkDetails.size());
+		AtomicInteger TotalNumberOfRentalRequest=new AtomicInteger(fTotalNumberOfRentalRequest);
+		CyclicBarrier newShift=new CyclicBarrier(fClerkDetails.size());
+		for(ClerkDetails clerk: fClerkDetails)
+			(new Thread(new RunnableClerk(clerk,fRentalRequests,fAssets,TotalNumberOfRentalRequest,lock,NumOfClerks,newShift))).start(); 
+		
+		
 	}
+	private void createRunnableCustomersGroup() {
+		// TODO Auto-generated method stub
+	}
+	public void releaseRepairMap() {
+		fCountDownLatch.countDown();
+		fMaintancePersons.release();
+		
+	}
+	public void takeRepairMan() {
+		try {
+			fMaintancePersons.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	
 
 }
 

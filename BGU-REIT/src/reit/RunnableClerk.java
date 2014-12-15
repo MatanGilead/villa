@@ -16,6 +16,21 @@ public class RunnableClerk implements Runnable {
 	private boolean fLastShift;
 	private int fSleepTime;
 
+	public RunnableClerk(ClerkDetails ClerkDetails,
+			BlockingQueue<RentalRequest> RentalRequests, Assets Assets,
+			AtomicInteger NumRentalRequests, Object Lock,
+			AtomicInteger NumOfClerks, CyclicBarrier NewShift) {
+		fClerkDetails = ClerkDetails;
+		fRentalRequests = RentalRequests;
+		fAssets = Assets;
+		fNumRentalRequests = NumRentalRequests;
+		fLock = Lock;
+		fNumOfClerks = NumOfClerks;
+		fNewShift = NewShift;
+		fLastShift = false;
+		fSleepTime = 0;
+	}
+	
 	@Override
 	public void run() {
 		while(fNumRentalRequests.get()!=0 && !fLastShift){
@@ -39,6 +54,7 @@ public class RunnableClerk implements Runnable {
 		private void endDay() {
 			if(fSleepTime>=8 && !fLastShift){ //enter to cycle barrier, or make a step to end thread
 				try {
+					fSleepTime=0;
 					fNewShift.await();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
