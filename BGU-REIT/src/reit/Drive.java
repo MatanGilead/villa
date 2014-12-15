@@ -1,22 +1,39 @@
 package reit;
 
-import java.io.FileReader;
+import java.io.File;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 public class Drive {
-	public Drive(Management management) {
+	public static void main(String[] args) {
+		Management management = new Management();
+		createAssetContentsReqpairDetails(management);
+
+		management.start();
+	}
+
+	private static void createAssetContentsReqpairDetails(Management management) {
+		returnObject("AssetContentsRepairDetails.xml","AssetContentsRepairDetails.class");
+	}
+
+	// Create an object of the required class;
+	public static Object returnObject(String fileName, String className) {
 		try {
-			XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-			xmlReader.setContentHandler(new AssetContentHandler(management));
-			xmlReader
-					.parse(new InputSource(
-							new FileReader(
-									"/home/matan/workspace/BGU-REIT/src/reit/AssetContentsRepairDetails.xml")));
-		} catch (Exception e) {
+			File file = new File(fileName);
+			JAXBContext jaxbContext = JAXBContext.newInstance(className);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			Object myObj = jaxbUnmarshaller.unmarshal(file);
+			return myObj;
+
+
+		} catch (JAXBException e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
+
+
+
 }
