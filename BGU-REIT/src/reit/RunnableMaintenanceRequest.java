@@ -1,7 +1,6 @@
 package reit;
 
 import java.util.ArrayList;
-import java.util.concurrent.Semaphore;
 
 import test.Warehouse;
 
@@ -18,8 +17,9 @@ public class RunnableMaintenanceRequest implements Runnable {
 
 	@Override
 	public void run() {
-		fManagement.takeRepairMan()
+		fManagement.takeRepairMan();
 		//job//
 		fManagement.releaseRepairMap();
 
+	}
 }

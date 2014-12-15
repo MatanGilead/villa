@@ -10,7 +10,7 @@ public Location(int x, int y){
 	fY=y;
 }
 
-public int CalculateDistance(Location other){
+	public double CalculateDistance(Location other) {
 	return Math.sqrt(Math.pow(fX-other.fX,2)+Math.pow(fY-other.fY,2));
 }
 	

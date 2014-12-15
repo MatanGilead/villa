@@ -41,8 +41,9 @@ public class RunnableClerk implements Runnable {
 			//check for a good asset
 				//Assets need to update Asset to booked, so this result will always be relevant
 				Asset foundOne=fAssets.find(rentalRequest); 
-				int distance=foundOne.getLocation().CalculateDistance(fClerkDetails.getLocation());
-				goToSleep(distance);
+				double distance = foundOne.getLocation().CalculateDistance(
+						fClerkDetails.getLocation());
+				goToSleep((int) distance);
 				rentalRequest.setAsset(foundOne);
 				rentalRequest.setRequestStatus("FULLFILLED"); //this function needs to awake customer
 				fNumRentalRequests.decrementAndGet(); //one rental request has been managed

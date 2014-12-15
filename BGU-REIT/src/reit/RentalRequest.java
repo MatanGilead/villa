@@ -7,7 +7,7 @@ public class RentalRequest {
 	private int fDurationOfStay;
 	private Asset fAsset;
 	private String fRequestStatus;
-}
+
 
 public RentalRequest(int id, String assetType, double assetSize,
 		int durationOfStay, Asset asset, String requestStatus) {
