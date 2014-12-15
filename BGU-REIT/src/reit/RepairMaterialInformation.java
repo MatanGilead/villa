@@ -1,11 +1,19 @@
 package reit;
 
+import java.util.ArrayList;
+
+import test.RepairMaterial;
+
 public class RepairMaterialInformation {
 	private String fName;
-	private int fQuantity;
+	private ArrayList<RepairMaterial> fMaterials;
 
-	public RepairMaterialInformation(String name, int quantity) {
+	public RepairMaterialInformation(String name) {
 		fName = name;
-		fQuantity = quantity;
+		fMaterials = new ArrayList<RepairMaterial>();
+	}
+
+	public void addRepairTool(String name, int quantity) {
+		fMaterials.add(new RepairMaterial(name, quantity));
 	}
 }

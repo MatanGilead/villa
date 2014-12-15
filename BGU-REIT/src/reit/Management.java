@@ -2,7 +2,6 @@ package reit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
@@ -18,8 +17,8 @@ public class Management {
 	private Warehouse fWarehouse;
 	private ArrayList<ClerkDetails> fClerkDetails;
 	private ArrayList<CustomerGroupDetails> fCustomerGroupDetails;
-	private HashMap<String, ArrayList<RepairMaterialInformation>> fRepairMaterialsInfo;
-	private HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo;
+	private HashMap<String, RepairMaterialInformation> fRepairMaterialsInfo;
+	private HashMap<String, RepairToolInformation> fRepairToolsInfo;
 	private Statistics fStatistics;
 	private BlockingQueue<RentalRequest> fRentalRequests;
 	private Semaphore fMaintancePersons; //used for maitance threads
@@ -46,8 +45,8 @@ public class Management {
 		fWarehouse=new Warehouse();
 		fClerkDetails=new ArrayList<ClerkDetails>();
 		fCustomerGroupDetails=new ArrayList<CustomerGroupDetails>();
-		fRepairMaterialsInfo = new HashMap<String, ArrayList<RepairMaterialInformation>>();
-		fRepairToolsInfo=new HashMap<String, ArrayList<RepairToolInformation>>();
+		fRepairMaterialsInfo = new HashMap<String, RepairMaterialInformation>();
+		fRepairToolsInfo = new HashMap<String, RepairToolInformation>();
 		fStatistics=new Statistics();
 		fRentalRequests = new LinkedBlockingQueue<RentalRequest>();
 		
@@ -73,9 +72,9 @@ public class Management {
 		fCustomerGroupDetails.add(customerGroup);
 	}
 
-	public void addItemRepairTool(String name, ArrayList<RepairToolInformation> toolList) {
+	public void addItemRepairTool(String name, RepairToolInformation tool) {
 
-		fRepairToolsInfo.put(name, toolList);
+		fRepairToolsInfo.put(name, tool);
 	}
 	/*	ArrayList<RepairToolInformation> toolList = repairToolsInfo.get(name);
 		if (!(toolList == null))
@@ -90,8 +89,9 @@ public class Management {
 
 
 
-	public void addItemRepairMaterial(String name, ArrayList<RepairMaterialInformation> materialList) {
-		fRepairMaterialsInfo.put(name, materialList);
+	public void addItemRepairMaterial(String name,
+			RepairMaterialInformation material) {
+		fRepairMaterialsInfo.put(name, material);
 	}
 	
 	/*

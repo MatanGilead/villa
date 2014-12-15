@@ -17,6 +17,14 @@ public class Drive {
 		management.start();
 	}
 
+	/**
+	 * a. get JAXB Object.
+	 * b. get list of AssetContents.
+	 * c. for each AssetContent. get list of materials and tools.
+	 * d. for each list, create RepairtToolInformation & RepairMaterialInformation containing this list.
+	 * e. add them to management.
+	 * 
+	 */
 	private static void createAssetContentsRepairDetails(Management management) {
 		AssetContentsRepairDetails allAssetContents= (AssetContentsRepairDetails)returnObject ("AssetContentsRepairDetails.xml","AssetContentsRepairDetails.class");
 		List<AssetContentsRepairDetails.AssetContent> list = allAssetContents.getAssetContent();
@@ -33,6 +41,7 @@ public class Drive {
 				materials.addRepairTool(material.getName(), material.getQuantity());
 				}
 
+			management.addItemRepairTool(assetContent.getName(), tools);
 			management.addItemRepairMaterial(assetContent.getName(), materials);
 		}
 	}
