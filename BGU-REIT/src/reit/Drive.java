@@ -1,19 +1,21 @@
 package reit;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+
+import driver.Assets;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import driver.AssetContentsRepairDetails;
+//import driver.AssetContentsRepairDetails;
 
 public class Drive {
 	public static void main(String[] args) {
 		Management management = new Management();
-		createAssetContentsRepairDetails(management);
-
+        createAssets(management);
 		// management.start();
 	}
 
@@ -25,32 +27,41 @@ public class Drive {
 	 * e. add them to management.
 	 * 
 	 */
-	private static void createAssetContentsRepairDetails(Management management) {
-		AssetContentsRepairDetails allAssetContents= (AssetContentsRepairDetails)returnObject ("AssetContentsRepairDetails.xml","AssetContentsRepairDetails.class");
-		List<AssetContentsRepairDetails.AssetContent> list = allAssetContents.getAssetContent();
-		for (AssetContentsRepairDetails.AssetContent assetContent : list) {
-			RepairToolInformation tools=new RepairToolInformation(assetContent.getName());
-			List<AssetContentsRepairDetails.AssetContent.Tools.Tool> toolList=assetContent.getTools().getTool();
-			for(AssetContentsRepairDetails.AssetContent.Tools.Tool tool: toolList){
-				tools.addRepairTool(tool.getName(), tool.getQuantity());
-				}
-			
-			RepairMaterialInformation materials=new RepairMaterialInformation (assetContent.getName());
-			List<AssetContentsRepairDetails.AssetContent.Materials.Material> materialList=assetContent.getMaterials().getMaterial();
-			for(AssetContentsRepairDetails.AssetContent.Materials.Material material: materialList){
-				materials.addRepairMaterial(material.getName(), material.getQuantity());
-				}
 
-			management.addItemRepairTool(assetContent.getName(), tools);
-			management.addItemRepairMaterial(assetContent.getName(), materials);
-		}
+	private static void createAssets(Management management){
+		Assets allAssets= (Assets)returnObject ("Assets.xml","driver.Assets");
+		List<Assets.Asset> list = allAssets.getAsset();
+		for (Assets.Asset asset : list) {
+			String name = asset.getName();
+			String type = asset.getType();
+			Location location= new Location(asset.getLocation().getX(), asset.getLocation().getY());
+			String status= "AVAILABLE";
+			int cost = asset.getCostPerNight();  
+			int size = asset.getSize();
+			Asset newAsset = new Asset (name, type, location, status, cost, size);
+			
+			List<Assets.Asset.AssetContents.AssetContent> contents = asset.getAssetContents().getAssetContent();
+			
+			for (Assets.Asset.AssetContents.AssetContent content: contents){
+			AssetContent newContent = new AssetContent (content.getName(), content.getRepairMultiplier());
+            newAsset.addAssetContent(newContent);
+			}
+			management.addAsset(newAsset);
+		}		
+	}
+	
+	private static void getName() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	// Create an object of the required class;
+
 	public static Object returnObject(String fileName, String className) {
+
 		try {
 			File file = new File(fileName);
-			JAXBContext jaxbContext = JAXBContext.newInstance(className);
+			JAXBContext jaxbContext = JAXBContext.newInstance(Class.forName(className));
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Object myObj = jaxbUnmarshaller.unmarshal(file);
 			return myObj;
@@ -59,9 +70,13 @@ public class Drive {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 			return null;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+
 		}
+
 	}
-
-
-
+	
 }

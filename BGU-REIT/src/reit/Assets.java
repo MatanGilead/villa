@@ -14,5 +14,11 @@ public class Assets {
 	public Asset find(RentalRequest request) {  //changes on this method would be safe because no one will iterate on not available asset
 		return null;
 	}
+	
+	public void addAsset (Asset asset){
+		//add a single asset to the assets collection
+		fAssets.add(asset);
+		
+	} 
 
 }

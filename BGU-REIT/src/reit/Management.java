@@ -52,6 +52,8 @@ public class Management {
 		
 
 	}
+	
+	
 	public void addMaintancePersons(int numOfMaintancePersons) {
 		fMaintancePersons=new Semaphore(numOfMaintancePersons,true);
 	}
@@ -65,6 +67,9 @@ public class Management {
 	}
 	
 	
+	public void addAsset(Asset asset){
+		fAssets.addAsset(asset);
+	}
 
 	
 

@@ -8,6 +8,7 @@ public class CustomerGroupDetails {
 	private String fGroupManagerName;
 
 	public void addCustomer(Customer customer) {
+		//add customer 
 
 	}
 
