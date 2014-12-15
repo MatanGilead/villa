@@ -1,7 +1,7 @@
 <root>
   <facet id="jpt.jaxb">
     <node name="classgen">
-      <attribute name="package" value="driver"/>
+      <attribute name="package" value=""/>
     </node>
     <node name="libprov">
       <attribute name="provider-id" value="jaxb-jre-library-provider"/>
@@ -24,6 +24,9 @@
       </node>
       <node name="schema-5">
         <attribute name="location" value="platform:/resource/BGU-REIT/src/driver/InitialData.xsd"/>
+      </node>
+      <node name="schema-6">
+        <attribute name="location" value="platform:/resource/BGU-REIT/InitialData.xsd"/>
       </node>
     </node>
   </facet>

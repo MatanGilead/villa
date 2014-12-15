@@ -22,7 +22,7 @@ public class Drive {
 		List<AssetContentsRepairDetails.AssetContent> list = AssetreturnObject
 				.getAssetContent();
 		for (AssetContentsRepairDetails.AssetContent assetContent : list) {
-			assetContent.getName();
+			ArrayList assetContent.getName();
 			assetContent.getTools();
 			assetContent.getMaterials();
 		}

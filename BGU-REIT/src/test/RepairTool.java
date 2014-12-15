@@ -1,13 +1,23 @@
 package test;
 
-public interface RepairTool {
+public class RepairTool {
+	private String fName;
+	private int fQuantity;
+	public RepairTool(String name, int count) {
+		fName = name;
+		fQuantity = count;
+	}
 
-	public String getName();
+	public String getName() {
+		return fName;
+	}
 
-	public void getTool(int num);
 
-	public boolean checkTool(int num);
+	public int getQuantity() {
+		return fQuantity;
+	}
 
-	public void setTool();
-
+	public void setQuantity(int quantity) {
+		fQuantity = quantity;
+	}
 }
