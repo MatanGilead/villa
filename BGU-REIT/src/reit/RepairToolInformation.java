@@ -2,8 +2,6 @@ package reit;
 
 import java.util.ArrayList;
 
-import test.RepairTool;
-
 public class RepairToolInformation {
 	private String fName;
 	private ArrayList<RepairTool> fTools;

@@ -2,7 +2,6 @@ package reit;
 
 import java.util.ArrayList;
 
-import test.RepairTool;
 
 public class Asset {
 	private String fName;

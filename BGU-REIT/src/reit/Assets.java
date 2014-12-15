@@ -7,6 +7,9 @@ public class Assets {
 	private ArrayList<Asset> fAssets;
 	
 	//might be in use for statistics. every assets will enter here twice
+	public Assets() {
+		fAssets = new ArrayList<Asset>();
+	}
 	public ArrayList<Asset> damagedAssets() { 
 		return null;
 	}

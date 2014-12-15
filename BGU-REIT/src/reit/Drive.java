@@ -3,13 +3,12 @@ package reit;
 import java.io.File;
 import java.util.List;
 
-import driver.Assets;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import driver.AssetContentsRepairDetails;
+import driver.Assets;
 import driver.CustomersGroups;
 import driver.REIT;
 
@@ -32,6 +31,7 @@ public class Drive {
 	 * e. add them to management.
 	 * 
 	 */
+
 	private static void createCustomersGroup(Management management) {
 		CustomersGroups allCustomers = (CustomersGroups) returnObject(
 				"CustomersGroups.xml", "driver.CustomersGroups");
