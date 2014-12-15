@@ -1,21 +1,31 @@
 package reit;
 
 import java.io.File;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import driver.AssetContentsRepairDetails;
+
 public class Drive {
 	public static void main(String[] args) {
 		Management management = new Management();
-		createAssetContentsReqpairDetails(management);
+		createAssetContentsRepairDetails(management);
 
 		management.start();
 	}
 
-	private static void createAssetContentsReqpairDetails(Management management) {
-		returnObject("AssetContentsRepairDetails.xml","AssetContentsRepairDetails.class");
+	private static void createAssetContentsRepairDetails(Management management) {
+		AssetContentsRepairDetails AssetreturnObject= (AssetContentsRepairDetails)returnObject ("AssetContentsRepairDetails.xml","AssetContentsRepairDetails.class");
+		List<AssetContentsRepairDetails.AssetContent> list = AssetreturnObject
+				.getAssetContent();
+		for (AssetContentsRepairDetails.AssetContent assetContent : list) {
+			assetContent.getName();
+			assetContent.getTools();
+			assetContent.getMaterials();
+		}
 	}
 
 	// Create an object of the required class;
