@@ -2,7 +2,6 @@ package reit;
 
 import java.util.ArrayList;
 
-import test.Warehouse;
 
 public class RunnableMaintenanceRequest implements Runnable {
 

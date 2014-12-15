@@ -10,13 +10,13 @@ public class RentalRequest {
 
 
 public RentalRequest(int id, String assetType, double assetSize,
-		int durationOfStay, Asset asset, String requestStatus) {
+			int durationOfStay) {
 	this.fId =id;
 	this.fAssetType = assetType;
 	this.fAssetSize = assetSize;
 	this.fDurationOfStay = durationOfStay;
-	this.fAsset = asset;
-	this.fRequestStatus = requestStatus;
+		this.fAsset = null;
+		this.fRequestStatus = "INCOMPLETE";
 	}
 
 public synchronized void setRequestStatus(String state){

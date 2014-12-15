@@ -9,7 +9,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import test.Warehouse;
 
 public class Management {
 
@@ -52,10 +51,12 @@ public class Management {
 		
 
 	}
-	
-	
 	public void addMaintancePersons(int numOfMaintancePersons) {
 		fMaintancePersons=new Semaphore(numOfMaintancePersons,true);
+	}
+
+	public void setCountDownLatch(int num) {
+		fCountDownLatch = new CountDownLatch(num);
 	}
 	public void FixAsset(DamageReport report) 
 	{
@@ -67,9 +68,6 @@ public class Management {
 	}
 	
 	
-	public void addAsset(Asset asset){
-		fAssets.addAsset(asset);
-	}
 
 	
 
@@ -106,6 +104,17 @@ public class Management {
 	 * materialList.add(material);
 	 */	
 		
+	public void addClerk(ClerkDetails clerk) {
+		fClerkDetails.add(clerk);
+	}
+
+	public void addRepairTool(RepairTool tool) {
+		fWarehouse.addTool(tool);
+	}
+
+	public void addRepairMaterial(RepairMaterial material) {
+		fWarehouse.addMaterial(material);
+	}
 
 	public void start() {
 		createRunnableCustomersGroup();

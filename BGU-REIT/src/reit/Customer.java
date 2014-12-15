@@ -6,8 +6,14 @@ public class Customer {
 	private double fMinDamage;
 	private double fMaxDamage;
 
+	Customer(String name, String VandalismType, double MinDamage,
+			double MaxDamage) {
+		fName = name;
+		fVandalismType = VandalismType;
+		fMinDamage = MinDamage;
+		fMaxDamage = MaxDamage;
+	}
 	public double CalculateDamage() {
-		//calculates the damage of the customer
 		return 0;
 	}
 }
