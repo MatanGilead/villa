@@ -10,7 +10,7 @@ public class RentalRequest {
 
 
 public RentalRequest(int id, String assetType, double assetSize,
-			int durationOfStay) {
+		int durationOfStay, Asset asset, String requestStatus) {
 	this.fId =id;
 	this.fAssetType = assetType;
 	this.fAssetSize = assetSize;

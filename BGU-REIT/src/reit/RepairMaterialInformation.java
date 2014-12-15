@@ -2,6 +2,7 @@ package reit;
 
 import java.util.ArrayList;
 
+import test.RepairMaterial;
 
 public class RepairMaterialInformation {
 	private String fName;

@@ -10,6 +10,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
+
 public class Management {
 
 	private Assets fAssets;
@@ -68,6 +69,9 @@ public class Management {
 	}
 	
 	
+	public void addAsset(Asset asset){
+		fAssets.addAsset(asset);
+	}
 
 	
 
