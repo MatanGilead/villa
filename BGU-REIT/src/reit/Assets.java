@@ -8,6 +8,7 @@ public class Assets {
 	
 	//might be in use for statistics. every assets will enter here twice
 	public Assets() {
+		//empty constructor
 		fAssets = new ArrayList<Asset>();
 	}
 	public ArrayList<Asset> damagedAssets() { 

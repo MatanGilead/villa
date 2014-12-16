@@ -33,72 +33,73 @@ public class Drive {
 	 */
 
 	private static void createCustomersGroup(Management management) {
+		//initialize fCustomerGroupDetails field in management
 		CustomersGroups allCustomers = (CustomersGroups) returnObject(
-				"CustomersGroups.xml", "driver.CustomersGroups");
+				"CustomersGroups.xml", "driver.CustomersGroups"); //JAXB object of type CustomerGroups
 		List<CustomersGroups.CustomerGroups.CustomerGroupDetails> custumersDetailsList = allCustomers
-				.getCustomerGroups().getCustomerGroupDetails();
-		for(CustomersGroups.CustomerGroups.CustomerGroupDetails groupManager: custumersDetailsList){
+				.getCustomerGroups().getCustomerGroupDetails(); //list of all CustomerGroupDatails
+		for(CustomersGroups.CustomerGroups.CustomerGroupDetails groupManager: custumersDetailsList){//go over all managers
 			CustomerGroupDetails group= new CustomerGroupDetails(groupManager.getGroupManagerName());
 			List<CustomersGroups.CustomerGroups.CustomerGroupDetails.Customers.Customer> customerList = groupManager.getCustomers().getCustomer();
-			for (CustomersGroups.CustomerGroups.CustomerGroupDetails.Customers.Customer customer : customerList) {
-				group.addCustomer(new Customer(customer.getName(),customer.getVandalism(),customer.getMinimumDamage(),customer.getMaximumDamage()));
+			for (CustomersGroups.CustomerGroups.CustomerGroupDetails.Customers.Customer customer : customerList) {//go over all customers
+				group.addCustomer(new Customer(customer.getName(),customer.getVandalism(),customer.getMinimumDamage(),customer.getMaximumDamage())); //add customer to group
 				}
 			CustomersGroups.CustomerGroups.CustomerGroupDetails.RentalRequests rentalRequests=groupManager.getRentalRequests();
 			List<CustomersGroups.CustomerGroups.CustomerGroupDetails.RentalRequests.Request> RentalRequestsList= rentalRequests.getRequest();
-			for(CustomersGroups.CustomerGroups.CustomerGroupDetails.RentalRequests.Request request:RentalRequestsList){
+			for(CustomersGroups.CustomerGroups.CustomerGroupDetails.RentalRequests.Request request:RentalRequestsList){//go over all rentalRequests
 				group.addRentalRequest(new RentalRequest(request.getId(),request.getType(),request.getSize(),request.getDuration()));
 			}
-			management.addCustomerGroup(group);
+			management.addCustomerGroup(group);//update management
 			
 		}
 
 	}
 	private static void createAssets(Management management){
-		Assets allAssets= (Assets)returnObject ("Assets.xml","driver.Assets");
-		List<Assets.Asset> list = allAssets.getAsset();
-		for (Assets.Asset asset : list) {
-			String name = asset.getName();
-			String type = asset.getType();
-			Location location= new Location(asset.getLocation().getX(), asset.getLocation().getY());
-			String status= "AVAILABLE";
-			int cost = asset.getCostPerNight();  
-			int size = asset.getSize();
-			Asset newAsset = new Asset (name, type, location, status, cost, size);
+		//initialize assets field in management class
+		Assets allAssets= (Assets)returnObject ("Assets.xml","driver.Assets"); // JAXB object of type Assets
+		List<Assets.Asset> list = allAssets.getAsset(); //get all Assets
+		for (Assets.Asset asset : list) { //go over every Asset
+			String name = asset.getName(); //Asset name
+			String type = asset.getType();  //Asset type
+			Location location= new Location(asset.getLocation().getX(), asset.getLocation().getY()); //Asset location
+			String status= "AVAILABLE"; // Asset status
+			int cost = asset.getCostPerNight();  //Asset costPerNight
+			int size = asset.getSize(); //Asset size
+			Asset newAsset = new Asset (name, type, location, status, cost, size); //create a new object with all values
 			
-			List<Assets.Asset.AssetContents.AssetContent> contents = asset.getAssetContents().getAssetContent();
+			List<Assets.Asset.AssetContents.AssetContent> contents = asset.getAssetContents().getAssetContent(); //all AssetContents
 			
-			for (Assets.Asset.AssetContents.AssetContent content: contents){
-			AssetContent newContent = new AssetContent (content.getName(), content.getRepairMultiplier());
-            newAsset.addAssetContent(newContent);
+			for (Assets.Asset.AssetContents.AssetContent content: contents){ //go over all AssetContents
+			AssetContent newContent = new AssetContent (content.getName(), content.getRepairMultiplier()); //create new AssetContent 
+            newAsset.addAssetContent(newContent); //add the AssetConetent to the assetContents collection
 			}
-			management.addAsset(newAsset);
+			management.addAsset(newAsset);//update management 
 		}		
 	}
 	private static void createReit(Management management) {
-		REIT reit = (REIT) returnObject("InitialData.xml", "driver.REIT");
-		REIT.Warehouse warehouse = reit.getWarehouse();
-		REIT.Staff staff = reit.getStaff();
-		REIT.Staff.Clerks clerks = staff.getClerks();
-		REIT.Warehouse.Tools tools=warehouse.getTools();
-		REIT.Warehouse.Materials materials = warehouse.getMaterials();
+		//initialize warehouse, clerks, maintenance person and CountDownLatch 
+		REIT reit = (REIT) returnObject("InitialData.xml", "driver.REIT"); //JAXB object of type REIT
+		REIT.Warehouse warehouse = reit.getWarehouse(); //get management
+		REIT.Staff staff = reit.getStaff();  //get all staff
+		REIT.Staff.Clerks clerks = staff.getClerks(); //get Clerks 
+		REIT.Warehouse.Tools tools=warehouse.getTools(); //get warehouse tools
+		REIT.Warehouse.Materials materials = warehouse.getMaterials(); //get warehouse materials
+		
 		for (REIT.Warehouse.Materials.Material material : materials
-				.getMaterial()) {
+				.getMaterial()) {//go over all materials
 			management.addRepairMaterial(new RepairMaterial(material.getName(),
-					material.getQuantity()));
+					material.getQuantity())); //update management
+		}	
+		for (REIT.Warehouse.Tools.Tool tool : tools.getTool()) {//go over all tools
+			management.addRepairTool(new RepairTool(tool.getName(), tool.getQuantity())); //update management
 		}
-		for (REIT.Warehouse.Tools.Tool tool : tools.getTool()) {
-			management.addRepairTool(new RepairTool(tool.getName(), tool.getQuantity()));
-		}
-		
-		
-		for (REIT.Staff.Clerks.Clerk clerk : clerks.getClerk()) {
+		for (REIT.Staff.Clerks.Clerk clerk : clerks.getClerk()) {// go over all clerks
 			management.addClerk(new ClerkDetails(clerk.getName(),new Location(clerk.getLocation().getX(),clerk.getLocation().getY())));
 		}
-		management.addMaintancePersons(staff.getNumberOfMaintenancePersons());
-		management.setCountDownLatch(staff.getTotalNumberOfRentalRequests());
-
-		// warehouse.getMaterials()
+		management.addMaintancePersons(staff.getNumberOfMaintenancePersons()); //update management
+		management.setCountDownLatch(staff.getTotalNumberOfRentalRequests()); //update management
 	}
+	
 	/**
 	 * a. get JAXB Object.
 	 * b. get list of AssetContents.
@@ -107,30 +108,33 @@ public class Drive {
 	 * e. add them to management.
 	 * 
 	 */
+	
 	private static void createAssetContentsRepairDetails(Management management) {
+		//initialization of the fRepairToolsInfo and fRepairMaterialsInfo fields in management
 		AssetContentsRepairDetails allAssetContents = (AssetContentsRepairDetails) returnObject(
 				"AssetContentsRepairDetails.xml",
-				"driver.AssetContentsRepairDetails");
-		List<AssetContentsRepairDetails.AssetContent> list = allAssetContents.getAssetContent();
-		for (AssetContentsRepairDetails.AssetContent assetContent : list) {
-			RepairToolInformation tools=new RepairToolInformation(assetContent.getName());
+				"driver.AssetContentsRepairDetails"); //JAXB object of type AssetContentsRepairDetails
+		List<AssetContentsRepairDetails.AssetContent> list = allAssetContents.getAssetContent(); // list of all assetContents
+		for (AssetContentsRepairDetails.AssetContent assetContent : list) { // go over every assetContent
+			RepairToolInformation tools=new RepairToolInformation(assetContent.getName()); 
 			List<AssetContentsRepairDetails.AssetContent.Tools.Tool> toolList=assetContent.getTools().getTool();
-			for(AssetContentsRepairDetails.AssetContent.Tools.Tool tool: toolList){
+			for(AssetContentsRepairDetails.AssetContent.Tools.Tool tool: toolList){// go over all tools
 				tools.addRepairTool(tool.getName(), tool.getQuantity());
 				}
 			
 			RepairMaterialInformation materials=new RepairMaterialInformation (assetContent.getName());
 			List<AssetContentsRepairDetails.AssetContent.Materials.Material> materialList=assetContent.getMaterials().getMaterial();
-			for(AssetContentsRepairDetails.AssetContent.Materials.Material material: materialList){
+			for(AssetContentsRepairDetails.AssetContent.Materials.Material material: materialList){ // go over all materials
 				materials.addRepairMaterial(material.getName(), material.getQuantity());
 				}
 
-			management.addItemRepairTool(assetContent.getName(), tools);
-			management.addItemRepairMaterial(assetContent.getName(), materials);
+			management.addItemRepairTool(assetContent.getName(), tools); //update field fRepairToolsInfo in management
+			management.addItemRepairMaterial(assetContent.getName(), materials); //update field fRepairMaterial in management
 		}
 	}
-	// Create an object of the required class;
-
+	
+	
+	// Create an object of the required class for initialization from the xml files
 	public static Object returnObject(String fileName, String className) {
 
 		try {
@@ -148,7 +152,6 @@ public class Drive {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
-
 		}
 
 	}

@@ -11,6 +11,7 @@ public class RentalRequest {
 
 public RentalRequest(int id, String assetType, double assetSize,
 			int durationOfStay) {
+	//constructor with parameters
 	this.fId =id;
 	this.fAssetType = assetType;
 	this.fAssetSize = assetSize;
