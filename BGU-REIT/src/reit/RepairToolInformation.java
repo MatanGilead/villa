@@ -15,4 +15,12 @@ public class RepairToolInformation {
 		fName = name;
 		fQuantity = quantity;
 	}
+
+	public String getName() {
+		return fName;
+	}
+
+	public int getQuantity() {
+		return fQuantity;
+	}
 }

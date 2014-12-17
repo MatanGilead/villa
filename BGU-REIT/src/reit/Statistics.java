@@ -41,7 +41,7 @@ public class Statistics implements Runnable {
 	}
 
 	public void addDamageReport(DamageReport report, RentalRequest rentalRequest) {
-		report.getAsset(). 
+		report.getAsset().
 		
 	}
 }

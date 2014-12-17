@@ -11,8 +11,8 @@ public class RunnableMaintenanceRequest implements Runnable {
 	private HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo;
 	private Asset fAsset;
 	private Warehouse fWarehouse;
-	private Semaphore fMaintancePersons; // used for maintenance threads
-	private Semaphore fMaintenceThreadsCount; // used for maintenance threads
+	private Semaphore fMaintancePersons; // used for maitance threads
+	private Semaphore fMaintenceThreadsCount; // used for maitance threads
 	private CountDownLatch fCountDownLatch;
 	private HashMap<String, Integer> allRequiredMaterials;
 	private HashMap<String, Integer> allRequiredTools;
@@ -60,7 +60,12 @@ public class RunnableMaintenanceRequest implements Runnable {
 		for (AssetContent assetContent : assetContentList) {
 			sleepTime = sleepTime + (100-fAsset.getHealth()) * assetContent.getMultiplier();
 		}
-		Thread.sleep((long) sleepTime);
+		try {
+			Thread.sleep((long) sleepTime);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -71,12 +76,12 @@ public class RunnableMaintenanceRequest implements Runnable {
 			ArrayList<RepairMaterialInformation> materialList=fRepairMaterialsInfo.get(assetContent.getName());
 			ArrayList<RepairToolInformation> toolList = fRepairToolsInfo.get(assetContent.getName());
 			for(RepairMaterialInformation material: materialList){
-				if(allRequiredMaterials.get(material.getName()==null) allRequiredMaterials.put(material.getName(),material.getQuantity());
+				if(allRequiredMaterials.get(material.getName())!=null) allRequiredMaterials.put(material.getName(),material.getQuantity());
 				else allRequiredMaterials.put(material.getName(),allRequiredMaterials.get(material.getName())+material.getQuantity());
 			}
 			for(RepairToolInformation tool: toolList){
-				if(allRequiredTools.get(material.getName()==null) allRequiredTools.put(material.getName(),material.getQuantity());
-				else allRequiredTools.put(material.getName(),max(allRequiredTools.get(material.getName()),material.getQuantity()));
+				if(allRequiredTools.get(tool.getName())!=null) allRequiredTools.put(tool.getName(),tool.getQuantity());
+				else allRequiredTools.put(tool.getName(),Math.max(allRequiredTools.get(tool.getName()),tool.getQuantity()));
 			}
 
 		}

@@ -10,5 +10,12 @@ public class AssetContent {
 		fName=name;
 		fRepairCostMultiplyer= repairCostMultiplyer;
 	}
+
+	public String getName() {
+		return fName;
+	}
+	public double getMultiplier() {
+		return fRepairCostMultiplyer;
+	}
 	
 }

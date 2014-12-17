@@ -37,5 +37,15 @@ public class Asset {
 	public ArrayList<AssetContent> getContent() {
 		return fAssetContent;
 	}
+
+	public double getHealth() {
+		return fHealth;
+	}
+
+	/***/
+	public void setFixed() {
+		// TODO Auto-generated method stub
+
+	}
 }
 

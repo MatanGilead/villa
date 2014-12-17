@@ -20,4 +20,5 @@ public class RepairMaterial {
 	public void setQuantity(int quantity) {
 		fQuantity = quantity;
 	}
+
 }

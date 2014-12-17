@@ -1,6 +1,5 @@
 package reit;
 
-import java.util.ArrayList;
 
 
 public class RepairMaterialInformation {
@@ -8,20 +7,19 @@ public class RepairMaterialInformation {
 	
 	private String fName;
 //	private ArrayList<RepairMaterial> fMaterials;
-	private int fCountity;
+	private int fQountity;
 	
 	
-	public RepairMaterialInformation(String name, int countity){
+	public RepairMaterialInformation(String name, int quantity) {
 		fName= name;
-		fCountity=countity;
+		fQountity = quantity;
 	}
 	
-//	public RepairMaterialInformation(String name) {
-	//	fName = name;
-	//	fMaterials = new ArrayList<RepairMaterial>();
-//	}
+	public String getName() {
+		return fName;
+	}
 
-	//public void addRepairMaterial(String name, int quantity) {
-	//	fMaterials.add(new RepairMaterial(name, quantity));
-	//}
+	public Integer getQuantity() {
+		return fQountity;
+	}
 }
