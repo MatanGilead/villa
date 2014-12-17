@@ -21,9 +21,13 @@ public class Management {
 	private HashMap<String, RepairToolInformation> fRepairToolsInfo;
 	private Statistics fStatistics;
 	private BlockingQueue<RentalRequest> fRentalRequests;
-	private Semaphore fMaintancePersons; //used for maitance threads
+	private int fNumMaintancePersons;
+	private Semaphore fMaintancePersons; // used for maitance threads
+	private Semaphore fMaintenceThreadsCount; // used for maitance threads
 	private int fTotalNumberOfRentalRequest;
+	private AtomicInteger fRequestsRemainByClerk;
 	private CountDownLatch fCountDownLatch;
+	private final Object fLock;
 	// RunnableMaintenanceRequest blocking queue---semaphore--
 	//we will use countDownLatch, set to num of rentalRequests to printout statistics.. we will do -1 whan the rental will complete
 	//every Runnable clerk will know  if he needs to continue his life cycle by his rental requests number------------
@@ -49,19 +53,23 @@ public class Management {
 		fRepairToolsInfo = new HashMap<String, RepairToolInformation>();
 		fStatistics=new Statistics();
 		fRentalRequests = new LinkedBlockingQueue<RentalRequest>();
-		
+		fLock=new Object();
+		fRequestsRemainByClerk=null;
+		fMaintancePersons = new Semaphore(0, true);
+		fMaintenceThreadsCount = new Semaphore(0, true);
 
 	}
 	public void addMaintancePersons(int numOfMaintancePersons) {
-		fMaintancePersons=new Semaphore(numOfMaintancePersons,true);
+		fNumMaintancePersons = numOfMaintancePersons;
 	}
 
 	public void setCountDownLatch(int num) {
 		fCountDownLatch = new CountDownLatch(num);
+		fTotalNumberOfRentalRequest = num;
 	}
 	public void FixAsset(DamageReport report) 
 	{
-		
+		// if not need repair - decrease number of needed repairman
 		///create runnablemaintence 
 
 		//release thread
@@ -125,22 +133,46 @@ public class Management {
 		createRunnableClerk();
 		fStatistics.print();
 	}
+
+	public void flagForRepair() {
+		fMaintenceThreadsCount.release(fRequestsRemainByClerk.get());
+		try {
+			fMaintenceThreadsCount.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	private void createRunnableClerk() {
-		Object lock=new Object();
-		AtomicInteger NumOfClerks=new AtomicInteger(fClerkDetails.size());
-		AtomicInteger TotalNumberOfRentalRequest=new AtomicInteger(fTotalNumberOfRentalRequest);
-		CyclicBarrier newShift=new CyclicBarrier(fClerkDetails.size());
+		Object lock = new Object();
+		AtomicInteger totalNewNumber=new AtomicInteger(fTotalNumberOfRentalRequest);
+		CyclicBarrier newShift = new CyclicBarrier(fClerkDetails.size(),
+				new Runnable() {
+					@Override
+					public void run() {
+						flagForRepair();
+					};
+				});
 		for(ClerkDetails clerk: fClerkDetails)
-			(new Thread(new RunnableClerk(clerk,fRentalRequests,fAssets,TotalNumberOfRentalRequest,lock,NumOfClerks,newShift))).start(); 
-		
+			(new Thread(new RunnableClerk(clerk, fRentalRequests, fAssets,
+					totalNewNumber, lock, fRequestsRemainByClerk,
+					newShift))).start();
 		
 	}
 	private void createRunnableCustomersGroup() {
 		// TODO Auto-generated method stub
 	}
-	public void releaseRepairMap() {
+
+	// may be in RunnableMaintence
+	public void releaseRepairMan() {
 		fCountDownLatch.countDown();
 		fMaintancePersons.release();
+		try {
+			fMaintenceThreadsCount.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		if(fMaintenceThreadsCount.availablePermits()==0) fMaintenceThreadsCount.notifyAll();
 		
 	}
 	public void takeRepairMan() {

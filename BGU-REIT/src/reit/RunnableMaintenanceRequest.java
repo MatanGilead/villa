@@ -17,7 +17,7 @@ public class RunnableMaintenanceRequest implements Runnable {
 	public void run() {
 		fManagement.takeRepairMan();
 		//job//
-		fManagement.releaseRepairMap();
+		fManagement.releaseRepairMan();
 
 	}
 }
