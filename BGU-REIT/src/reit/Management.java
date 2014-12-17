@@ -25,7 +25,7 @@ public class Management {
 	private Semaphore fMaintancePersons; // used for maitance threads
 	private Semaphore fMaintenceThreadsCount; // used for maitance threads
 	private int fTotalNumberOfRentalRequest;
-	private AtomicInteger fRequestsRemainByClerk;
+	private AtomicInteger fRequestsFinishedByClerk;
 	private CountDownLatch fCountDownLatch;
 	private final Object fLock;
 	// RunnableMaintenanceRequest blocking queue---semaphore--
@@ -55,7 +55,7 @@ public class Management {
 		fStatistics=new Statistics();
 		fRentalRequests = new LinkedBlockingQueue<RentalRequest>();
 		fLock=new Object();
-		fRequestsfinishedByClerk=null;
+		fRequestsFinishedByClerk=null;
 		fMaintancePersons = new Semaphore(0, true);
 		fMaintenceThreadsCount = new Semaphore(0, true);
 
@@ -137,7 +137,7 @@ public class Management {
 	}
 
 	public void flagForRepair() {
-		fMaintenceThreadsCount.release(fRequestsfinishedByClerk.get());
+		fMaintenceThreadsCount.release(fRequestsFinishedByClerk.get());
 		try {
 			fMaintenceThreadsCount.wait();
 		} catch (InterruptedException e) {
@@ -157,7 +157,7 @@ public class Management {
 				});
 		for(ClerkDetails clerk: fClerkDetails)
 			(new Thread(new RunnableClerk(clerk, fRentalRequests, fAssets,
-					totalNewNumber, lock, fRequestsfinishedByClerk,
+					totalNewNumber, lock, fRequestsFinishedByClerk,
 					newShift))).start();
 		
 	}
