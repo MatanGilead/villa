@@ -25,7 +25,7 @@ public class Management {
 	private Semaphore fMaintancePersons; // used for maitance threads
 	private Semaphore fMaintenceThreadsCount; // used for maitance threads
 	private int fTotalNumberOfRentalRequest;
-	private AtomicInteger fRequestsfinishedByClerk;
+	private AtomicInteger fRequestsRemainByClerk;
 	private CountDownLatch fCountDownLatch;
 	private final Object fLock;
 	// RunnableMaintenanceRequest blocking queue---semaphore--
@@ -93,7 +93,6 @@ public class Management {
 	//change it so we won't send the whole collection!!!!
 	public void addItemRepairTool(String name, ArrayList<RepairToolInformation> tool) {
 		fRepairToolsInfo.put(name, tool);
-		
 	}
 	/*	ArrayList<RepairToolInformation> toolList = repairToolsInfo.get(name);
 		if (!(toolList == null))
@@ -166,26 +165,7 @@ public class Management {
 		// TODO Auto-generated method stub
 	}
 
-	// may be in RunnableMaintence
-	public void releaseRepairMan() {
-		fCountDownLatch.countDown();
-		fMaintancePersons.release();
-		try {
-			fMaintenceThreadsCount.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		if(fMaintenceThreadsCount.availablePermits()==0) fMaintenceThreadsCount.notifyAll();
-		
-	}
-	public void takeRepairMan() {
-		try {
-			fMaintancePersons.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-	}
+
 
 	
 

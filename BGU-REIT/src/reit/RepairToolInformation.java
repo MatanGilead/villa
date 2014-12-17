@@ -8,7 +8,7 @@ public class RepairToolInformation {
 
 	public RepairToolInformation(String name){
 		fName = name;
-		fCountity = 0;
+		fQountity = 0;
 		
 	}
 	

@@ -13,7 +13,6 @@ public class Asset {
 	private int fSize;
 	private double fHealth; // beteen 0 to 100, including edges
 
-
 	public Asset(String name,String type,Location location,String status,int costPetInt,int size){
 		//constructor with parameters
 		fName=name;
@@ -34,4 +33,9 @@ public class Asset {
 		//add asset content to the asset content collection
 		fAssetContent.add(assetContent);
 	}
+
+	public ArrayList<AssetContent> getContent() {
+		return fAssetContent;
+	}
 }
+
