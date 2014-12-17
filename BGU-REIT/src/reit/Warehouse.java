@@ -13,8 +13,9 @@ public class Warehouse implements WarehouseInter {
 	}
 
 	@Override
-	public void AcquireTool(ArrayList<RepairTool> tool) {
+	public void AcquireTool(HashMap<String, Integer> tool) {
 		// TODO Auto-generated method stub
+	tools.	
 
 	}
 
