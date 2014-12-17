@@ -31,4 +31,9 @@ public class CustomerGroupDetails {
 	  return newRequest;
 	}
 
+	public ArrayList<Customer> getCustomers(){
+		return fCustomers;
+	}
+
 }
+
