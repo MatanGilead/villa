@@ -25,5 +25,10 @@ public class CustomerGroupDetails {
 		//add rentalRequest to the RentalRequests collection
 		fRentalRequests.add(rentalRequest);
 	}
+	
+	public RentalRequest sendRentalRequest(){
+	  RentalRequest newRequest = fRentalRequests.remove(0);
+	  return newRequest;
+	}
 
 }
