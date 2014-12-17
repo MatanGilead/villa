@@ -10,16 +10,19 @@ public class CustomerGroupDetails {
 	private String fGroupManagerName;
 
 	CustomerGroupDetails(String name) {
+		//constructor with parameters
 		fRentalRequests = new ArrayList<RentalRequest>();
 		fCustomers = new ArrayList<Customer>();
 		fGroupManagerName = name;
 	}
 
 	public void addCustomer(Customer customer) {
+		//add customer to the Customers collection
 		fCustomers.add(customer);
 	}
 
 	public void addRentalRequest(RentalRequest rentalRequest) {
+		//add rentalRequest to the RentalRequests collection
 		fRentalRequests.add(rentalRequest);
 	}
 

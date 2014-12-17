@@ -45,6 +45,7 @@ public class Management {
 
 
 	public Management() {
+		//empty constructor
 		fAssets=new Assets();
 		fWarehouse=new Warehouse();
 		fClerkDetails=new ArrayList<ClerkDetails>();
@@ -78,17 +79,18 @@ public class Management {
 	
 	
 	public void addAsset(Asset asset){
+		//add asset to the assets collection
 		fAssets.addAsset(asset);
 	}
 
 	
 
 	public void addCustomerGroup(CustomerGroupDetails customerGroup) {
+		//add CustomerGroup to the CustomerGroup collection
 		fCustomerGroupDetails.add(customerGroup);
 	}
 
 	public void addItemRepairTool(String name, RepairToolInformation tool) {
-
 		fRepairToolsInfo.put(name, tool);
 	}
 	/*	ArrayList<RepairToolInformation> toolList = repairToolsInfo.get(name);
