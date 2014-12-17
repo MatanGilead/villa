@@ -68,8 +68,18 @@ public class Management {
 		fCountDownLatch = new CountDownLatch(num);
 		fTotalNumberOfRentalRequest = num;
 	}
-	public void FixAsset(DamageReport report) 
+
+	public void FixAsset(DamageReport report, RentalRequest rentalRequest)
 	{
+		fStatistics.addDamageReport(report, rentalRequest);
+		synchronized (fLock) {
+			if (report.getAsset().getHealth() > 65) {
+			fMaintenceThreadsCount.release(-1);
+			if (fMaintenceThreadsCount.availablePermits() == 0)
+				fMaintenceThreadsCount.notifyAll();
+			}
+		}
+
 		// if not need repair - decrease number of needed repairman
 		///create runnablemaintence 
 
@@ -131,20 +141,25 @@ public class Management {
 	}
 
 	public void start() {
+		new Thread(fStatistics).start();
 		createRunnableCustomersGroup();
 		createRunnableClerk();
-		fStatistics.print();
+
 	}
 
 	public void flagForRepair() {
-		fMaintenceThreadsCount.release(fRequestsFinishedByClerk.get());
-		try {
-			fMaintenceThreadsCount.wait();
+		synchronized (fLock) {
+			try {
+				fMaintenceThreadsCount.release(fRequestsFinishedByClerk.get());
+				if (fMaintenceThreadsCount.availablePermits() != 0)
+					fMaintenceThreadsCount.wait();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		}
 	}
+
 	private void createRunnableClerk() {
 		Object lock = new Object();
 		AtomicInteger totalNewNumber=new AtomicInteger(fTotalNumberOfRentalRequest);

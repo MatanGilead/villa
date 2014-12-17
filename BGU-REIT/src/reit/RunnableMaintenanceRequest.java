@@ -17,6 +17,7 @@ public class RunnableMaintenanceRequest implements Runnable {
 	private HashMap<String, Integer> allRequiredMaterials;
 	private HashMap<String, Integer> allRequiredTools;
 	private Statistics fStatistics;
+	private Object fLock;
 
 
 
@@ -25,8 +26,7 @@ public class RunnableMaintenanceRequest implements Runnable {
 			HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo,
 			Asset fAsset, Warehouse fWarehouse, Semaphore fMaintancePersons,
 			Semaphore fMaintenceThreadsCount, CountDownLatch fCountDownLatch,
-			Statistics statistics) {
-		super();
+			Statistics statistics, Object lock) {
 		this.fRepairMaterialsInfo = fRepairMaterialsInfo;
 		this.fRepairToolsInfo = fRepairToolsInfo;
 		this.fAsset = fAsset;
@@ -37,6 +37,7 @@ public class RunnableMaintenanceRequest implements Runnable {
 		allRequiredMaterials = new HashMap<String, Integer>();
 		allRequiredTools = new HashMap<String, Integer>();
 		fStatistics = statistics;
+		fLock = lock;
 	}
 
 	@Override
@@ -83,12 +84,13 @@ public class RunnableMaintenanceRequest implements Runnable {
 	}
 
 	private void takeRepairMan() {
-		try {
-			fMaintenceThreadsCount.acquire();
+		synchronized (fLock) {
+			try {
+				fMaintenceThreadsCount.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			}
 		}
-
 	}
 
 	private void releaseRepairMan() {

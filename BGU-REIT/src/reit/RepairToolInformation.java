@@ -1,19 +1,18 @@
 package reit;
 
-import java.util.ArrayList;
 
 public class RepairToolInformation {
 	private String fName;
-	private int fCountity;
+	private int fQuantity;
 
 	public RepairToolInformation(String name){
 		fName = name;
-		fQountity = 0;
+		fQuantity = 0;
 		
 	}
 	
-	public RepairToolInformation(String name, int countity) {
+	public RepairToolInformation(String name, int quantity) {
 		fName = name;
-		fCountity = countity;
+		fQuantity = quantity;
 	}
 }
