@@ -9,8 +9,8 @@ public class RunnableClerk implements Runnable {
 	ClerkDetails fClerkDetails;
 	private BlockingQueue<RentalRequest> fRentalRequests;
 	private Assets fAssets;
-	private AtomicInteger fNumRentalRequests;
-	private AtomicInteger fRequestsRemainByClerk;
+	private AtomicInteger fNumRentalRequests; 
+	private AtomicInteger fRequestsfinishedByClerk;
 	private Object fLock; // used for continueRunning
 
 	private CyclicBarrier fNewShift;
@@ -24,7 +24,7 @@ public class RunnableClerk implements Runnable {
 		fClerkDetails = ClerkDetails;
 		fRentalRequests = RentalRequests;
 		fAssets = Assets;
-		fRequestsRemainByClerk = RequestsRemainByClerk;
+		fRequestsfinishedByClerk = RequestsRemainByClerk;
 		fNumRentalRequests = NumRentalRequests;
 		fLock = Lock;
 		fNewShift = NewShift;
@@ -78,7 +78,7 @@ public class RunnableClerk implements Runnable {
 					try {
 						rentalRequest=fRentalRequests.take();
 						fNumRentalRequests.decrementAndGet(); //one rental request has been managed
-					fRequestsRemainByClerk.incrementAndGet();
+						fRequestsfinishedByClerk.incrementAndGet();
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

@@ -17,15 +17,15 @@ public class Management {
 	private Warehouse fWarehouse;
 	private ArrayList<ClerkDetails> fClerkDetails;
 	private ArrayList<CustomerGroupDetails> fCustomerGroupDetails;
-	private HashMap<String, RepairMaterialInformation> fRepairMaterialsInfo;
-	private HashMap<String, RepairToolInformation> fRepairToolsInfo;
+	private HashMap<String, ArrayList<RepairMaterialInformation>> fRepairMaterialsInfo;
+	private HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo;
 	private Statistics fStatistics;
 	private BlockingQueue<RentalRequest> fRentalRequests;
 	private int fNumMaintancePersons;
 	private Semaphore fMaintancePersons; // used for maitance threads
 	private Semaphore fMaintenceThreadsCount; // used for maitance threads
 	private int fTotalNumberOfRentalRequest;
-	private AtomicInteger fRequestsRemainByClerk;
+	private AtomicInteger fRequestsfinishedByClerk;
 	private CountDownLatch fCountDownLatch;
 	private final Object fLock;
 	// RunnableMaintenanceRequest blocking queue---semaphore--
@@ -50,12 +50,12 @@ public class Management {
 		fWarehouse=new Warehouse();
 		fClerkDetails=new ArrayList<ClerkDetails>();
 		fCustomerGroupDetails=new ArrayList<CustomerGroupDetails>();
-		fRepairMaterialsInfo = new HashMap<String, RepairMaterialInformation>();
-		fRepairToolsInfo = new HashMap<String, RepairToolInformation>();
+		fRepairMaterialsInfo = new HashMap<String, ArrayList<RepairMaterialInformation>>();
+		fRepairToolsInfo = new HashMap<String, ArrayList<RepairToolInformation>>();
 		fStatistics=new Statistics();
 		fRentalRequests = new LinkedBlockingQueue<RentalRequest>();
 		fLock=new Object();
-		fRequestsRemainByClerk=null;
+		fRequestsfinishedByClerk=null;
 		fMaintancePersons = new Semaphore(0, true);
 		fMaintenceThreadsCount = new Semaphore(0, true);
 
@@ -90,8 +90,10 @@ public class Management {
 		fCustomerGroupDetails.add(customerGroup);
 	}
 
-	public void addItemRepairTool(String name, RepairToolInformation tool) {
+	//change it so we won't send the whole collection!!!!
+	public void addItemRepairTool(String name, ArrayList<RepairToolInformation> tool) {
 		fRepairToolsInfo.put(name, tool);
+		
 	}
 	/*	ArrayList<RepairToolInformation> toolList = repairToolsInfo.get(name);
 		if (!(toolList == null))
@@ -105,9 +107,8 @@ public class Management {
 	
 
 
-
-	public void addItemRepairMaterial(String name,
-			RepairMaterialInformation material) {
+    //change it so we won't send the whole collection!!
+	public void addItemRepairMaterial(String name, ArrayList<RepairMaterialInformation> material) {
 		fRepairMaterialsInfo.put(name, material);
 	}
 	
@@ -137,7 +138,7 @@ public class Management {
 	}
 
 	public void flagForRepair() {
-		fMaintenceThreadsCount.release(fRequestsRemainByClerk.get());
+		fMaintenceThreadsCount.release(fRequestsfinishedByClerk.get());
 		try {
 			fMaintenceThreadsCount.wait();
 		} catch (InterruptedException e) {
@@ -157,7 +158,7 @@ public class Management {
 				});
 		for(ClerkDetails clerk: fClerkDetails)
 			(new Thread(new RunnableClerk(clerk, fRentalRequests, fAssets,
-					totalNewNumber, lock, fRequestsRemainByClerk,
+					totalNewNumber, lock, fRequestsfinishedByClerk,
 					newShift))).start();
 		
 	}

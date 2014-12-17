@@ -11,6 +11,8 @@ public class Asset {
 	private String fStatus; // possibly switch to int
 	private int fCostPerInt;
 	private int fSize;
+	private double fHealth; // beteen 0 to 100, including edges
+
 
 	public Asset(String name,String type,Location location,String status,int costPetInt,int size){
 		//constructor with parameters
@@ -20,7 +22,7 @@ public class Asset {
 		fAssetContent = new ArrayList<AssetContent>() ;
 		fStatus=status;
 		fSize=size;	
-		
+		fHealth = 100;
 	}
 	
 	public Location getLocation(){
@@ -33,4 +35,3 @@ public class Asset {
 		fAssetContent.add(assetContent);
 	}
 }
-

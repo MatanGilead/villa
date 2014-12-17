@@ -1,6 +1,7 @@
 package reit;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -116,16 +117,20 @@ public class Drive {
 				"driver.AssetContentsRepairDetails"); //JAXB object of type AssetContentsRepairDetails
 		List<AssetContentsRepairDetails.AssetContent> list = allAssetContents.getAssetContent(); // list of all assetContents
 		for (AssetContentsRepairDetails.AssetContent assetContent : list) { // go over every assetContent
-			RepairToolInformation tools=new RepairToolInformation(assetContent.getName()); 
+			//RepairToolInformation tools=new RepairToolInformation(assetContent.getName()); 
+			ArrayList<RepairToolInformation> tools = new ArrayList<RepairToolInformation>();
 			List<AssetContentsRepairDetails.AssetContent.Tools.Tool> toolList=assetContent.getTools().getTool();
 			for(AssetContentsRepairDetails.AssetContent.Tools.Tool tool: toolList){// go over all tools
-				tools.addRepairTool(tool.getName(), tool.getQuantity());
+				RepairToolInformation singleTool = new RepairToolInformation (tool.getName(),tool.getQuantity());
+				tools.add(singleTool);
 				}
 			
-			RepairMaterialInformation materials=new RepairMaterialInformation (assetContent.getName());
+		  //RepairMaterialInformation materials=new RepairMaterialInformation (assetContent.getName());
+			ArrayList<RepairMaterialInformation> materials = new ArrayList<RepairMaterialInformation>();
 			List<AssetContentsRepairDetails.AssetContent.Materials.Material> materialList=assetContent.getMaterials().getMaterial();
 			for(AssetContentsRepairDetails.AssetContent.Materials.Material material: materialList){ // go over all materials
-				materials.addRepairMaterial(material.getName(), material.getQuantity());
+				RepairMaterialInformation singleMaterial = new RepairMaterialInformation (material.getName(),material.getQuantity());
+				materials.add(singleMaterial);
 				}
 
 			management.addItemRepairTool(assetContent.getName(), tools); //update field fRepairToolsInfo in management

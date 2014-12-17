@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 public class RepairToolInformation {
 	private String fName;
-	private ArrayList<RepairTool> fTools;
+	private int fCountity;
 
-	public RepairToolInformation(String name) {
+	public RepairToolInformation(String name){
 		fName = name;
-		fTools = new ArrayList<RepairTool>();
+		fCountity = 0;
+		
 	}
-
-	public void addRepairTool(String name, int quantity) {
-		fTools.add(new RepairTool(name, quantity));
+	
+	public RepairToolInformation(String name, int countity) {
+		fName = name;
+		fCountity = countity;
 	}
 }
