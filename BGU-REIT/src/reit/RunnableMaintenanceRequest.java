@@ -11,8 +11,8 @@ public class RunnableMaintenanceRequest implements Runnable {
 	private HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo;
 	private Asset fAsset;
 	private Warehouse fWarehouse;
-	private Semaphore fMaintancePersons; // used for maitance threads
-	private Semaphore fMaintenceThreadsCount; // used for maitance threads
+	private Semaphore fMaintancePersons; // used for maintenance threads
+	private Semaphore fMaintenceThreadsCount; // used for maintenance threads
 	private CountDownLatch fCountDownLatch;
 	private HashMap<String, Integer> allRequiredMaterials;
 	private HashMap<String, Integer> allRequiredTools;

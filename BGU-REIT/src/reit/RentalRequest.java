@@ -29,4 +29,8 @@ public void setAsset(Asset foundOne) {
 	
 }
 
+public String getRentalRequestStatus(){
+	return fRequestStatus;
+}
+
 }

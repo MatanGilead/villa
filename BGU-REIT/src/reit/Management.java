@@ -166,7 +166,7 @@ public class Management {
 	}
 
 
-
+    public void addRentalRequest(RentalRequest rentalRequest){}
 	
 
 }
