@@ -14,13 +14,13 @@ public class RunnableClerk implements Runnable {
 	private Object fLock; // used for continueRunning
 	private Logger logger;
 	private CyclicBarrier fNewShift;
-
+	private Boolean fNeedToGo;
 	private int fSleepTime;
 	private boolean fSlept;
 	public RunnableClerk(ClerkDetails ClerkDetails,
 			BlockingQueue<RentalRequest> RentalRequests, Assets Assets,
 			AtomicInteger NumRentalRequests, Object Lock,
-			CyclicBarrier NewShift) {
+			CyclicBarrier NewShift, Boolean needToGo) {
 		fClerkDetails = ClerkDetails;
 		fRentalRequests = RentalRequests;
 		fAssets = Assets;
@@ -30,6 +30,7 @@ public class RunnableClerk implements Runnable {
 		fSlept = false;
 		fSleepTime = 0;
 		logger = MyLogger.getLogger("RunnableClerk");
+		fNeedToGo = needToGo;
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class RunnableClerk implements Runnable {
 			rentalRequest.notifyAll();
 			endDay();
 			}
-		if (!fSlept)
+		if (!fNeedToGo && !fSlept)
 			endDay();
 	}
 

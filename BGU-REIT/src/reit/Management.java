@@ -27,6 +27,7 @@ public class Management {
 	private int fTotalNumberOfRentalRequest;
 	private CountDownLatch fCountDownLatch;
 	private Logger logger;
+	private Boolean killClerks;
 	// RunnableMaintenanceRequest blocking queue---semaphore--
 	//we will use countDownLatch, set to num of rentalRequests to printout statistics.. we will do -1 whan the rental will complete
 	//every Runnable clerk will know  if he needs to continue his life cycle by his rental requests number------------
@@ -54,7 +55,7 @@ public class Management {
 		fRentalRequests = new LinkedBlockingQueue<RentalRequest>();
 		fMaintenceThreadsCount = new Semaphore(0, true);
 		logger = MyLogger.getLogger("Management");
-
+		killClerks = false;
 	}
 	public void addMaintancePersons(int numOfMaintancePersons) {
 		fMaintancePersons = new Semaphore(numOfMaintancePersons, true);
@@ -135,6 +136,9 @@ public class Management {
 				}
 			try {
 				fMaintenceThreadsCount.wait();
+				if (fMaintenceThreadsCount.availablePermits() == 0)
+					killClerks = true;
+				else
 				logger.info("Clerks shift has started!");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -156,10 +160,10 @@ public class Management {
 						startRepair();
 					};
 				});
+		
 		for(ClerkDetails clerk: fClerkDetails)
 			(new Thread(new RunnableClerk(clerk, fRentalRequests, fAssets,
-					totalNewNumber, lock,
-					newShift))).start();
+					totalNewNumber, lock, newShift, killClerks))).start();
 		
 	}
 	private void createRunnableCustomersGroup() {
