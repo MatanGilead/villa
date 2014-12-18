@@ -1,2 +1,12 @@
 /driver/
 /reit/
+/AssetContentsRepairDetails.xsd
+/Assets.xsd
+/CustomersGroups.xsd
+/InitialData.xsd
+/AssetContentsRepairDetails.xml
+/Assets.xml
+/CustomersGroups.xml
+/InitialData.xml
+/CustomersGroups.out.xml
+/Assets.out.xml
