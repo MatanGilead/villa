@@ -17,7 +17,7 @@ public class RunnableMaintenanceRequest implements Runnable {
 	private HashMap<String, Integer> allRequiredMaterials;
 	private HashMap<String, Integer> allRequiredTools;
 	private Statistics fStatistics;
-	private Object fLock;
+
 
 
 
@@ -26,7 +26,7 @@ public class RunnableMaintenanceRequest implements Runnable {
 			HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo,
 			Asset fAsset, Warehouse fWarehouse, Semaphore fMaintancePersons,
 			Semaphore fMaintenceThreadsCount, CountDownLatch fCountDownLatch,
-			Statistics statistics, Object lock) {
+			Statistics statistics) {
 		this.fRepairMaterialsInfo = fRepairMaterialsInfo;
 		this.fRepairToolsInfo = fRepairToolsInfo;
 		this.fAsset = fAsset;
@@ -37,13 +37,13 @@ public class RunnableMaintenanceRequest implements Runnable {
 		allRequiredMaterials = new HashMap<String, Integer>();
 		allRequiredTools = new HashMap<String, Integer>();
 		fStatistics = statistics;
-		fLock = lock;
+
 	}
 
 	@Override
 	public void run() {
-		takeRepairMan();
 		createLists();
+		takeRepairMan();
 		fWarehouse.AcquireTool(allRequiredTools);
 		fWarehouse.AcquireMaterial(allRequiredMaterials);
 		goToSleep();
@@ -89,13 +89,12 @@ public class RunnableMaintenanceRequest implements Runnable {
 	}
 
 	private void takeRepairMan() {
-		synchronized (fLock) {
 			try {
-				fMaintenceThreadsCount.acquire();
+			fMaintancePersons.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			}
-		}
+
 	}
 
 	private void releaseRepairMan() {
@@ -106,8 +105,9 @@ public class RunnableMaintenanceRequest implements Runnable {
 	} catch (InterruptedException e) {
 		e.printStackTrace();
 	}
+		synchronized (fCountDownLatch) {
 	if(fMaintenceThreadsCount.availablePermits()==0) fMaintenceThreadsCount.notifyAll();
-	
+	}
 }
 
 }

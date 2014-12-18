@@ -10,10 +10,21 @@ public class ClerkDetails {
 		fLocation = location;
 	}
 
+	/**
+	 * Return the name of the clerk.
+	 * 
+	 * @return name
+	 */
 	public String getName() {
 		//return name
 		return fName;
 	}
+
+	/**
+	 * Return the location of the clerk.
+	 * 
+	 * @return location.
+	 */
 	public Location getLocation(){
 		//return location
 		return fLocation;

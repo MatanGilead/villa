@@ -21,13 +21,11 @@ public class Management {
 	private HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo;
 	private Statistics fStatistics;
 	private BlockingQueue<RentalRequest> fRentalRequests;
-	private int fNumMaintancePersons;
 	private Semaphore fMaintancePersons; // used for maitance threads
 	private Semaphore fMaintenceThreadsCount; // used for maitance threads
 	private int fTotalNumberOfRentalRequest;
-	private AtomicInteger fRequestsFinishedByClerk;
 	private CountDownLatch fCountDownLatch;
-	private final Object fLock;
+
 	// RunnableMaintenanceRequest blocking queue---semaphore--
 	//we will use countDownLatch, set to num of rentalRequests to printout statistics.. we will do -1 whan the rental will complete
 	//every Runnable clerk will know  if he needs to continue his life cycle by his rental requests number------------
@@ -45,7 +43,6 @@ public class Management {
 
 
 	public Management() {
-		//empty constructor
 		fAssets=new Assets();
 		fWarehouse=new Warehouse();
 		fClerkDetails=new ArrayList<ClerkDetails>();
@@ -54,14 +51,11 @@ public class Management {
 		fRepairToolsInfo = new HashMap<String, ArrayList<RepairToolInformation>>();
 		fStatistics=new Statistics();
 		fRentalRequests = new LinkedBlockingQueue<RentalRequest>();
-		fLock=new Object();
-		fRequestsFinishedByClerk=null;
-		fMaintancePersons = new Semaphore(0, true);
 		fMaintenceThreadsCount = new Semaphore(0, true);
 
 	}
 	public void addMaintancePersons(int numOfMaintancePersons) {
-		fNumMaintancePersons = numOfMaintancePersons;
+		fMaintancePersons = new Semaphore(numOfMaintancePersons, true);
 	}
 
 	public void setCountDownLatch(int num) {
@@ -72,21 +66,13 @@ public class Management {
 	public void FixAsset(DamageReport report, RentalRequest rentalRequest)
 	{
 		fStatistics.addDamageReport(report, rentalRequest);
-		synchronized (fLock) {
-			if (report.getAsset().getHealth() > 65) {
-			fMaintenceThreadsCount.release(-1);
-			if (fMaintenceThreadsCount.availablePermits() == 0)
-				fMaintenceThreadsCount.notifyAll();
+		if (report.getAsset().getHealth() > 65) {
+			report.getAsset().setFixed();
+			for (ClerkDetails customer:fClerkDetails) customer.notifyAll();
 			}
-		}
-
-		// if not need repair - decrease number of needed repairman
-		///create runnablemaintence 
-
-		//release thread
-
+		else report.getAsset().setBroken();
 	}
-	
+
 	
 	public void addAsset(Asset asset){
 		//add asset to the assets collection
@@ -147,18 +133,23 @@ public class Management {
 
 	}
 
-	public void flagForRepair() {
-		synchronized (fLock) {
+	public void startRepair() {
+		ArrayList<Asset> brokenList = fAssets.getBroken();
+			fMaintenceThreadsCount.release(brokenList.size());
+			synchronized(fCountDownLatch){
+				for(Asset asset: brokenList){
+					new Thread(new RunnableMaintenanceRequest(fRepairMaterialsInfo, fRepairToolsInfo, asset, fWarehouse, fMaintancePersons, fMaintenceThreadsCount, fCountDownLatch, fStatistics)).start();
+				}
 			try {
-				fMaintenceThreadsCount.release(fRequestsFinishedByClerk.get());
-				if (fMaintenceThreadsCount.availablePermits() != 0)
-					fMaintenceThreadsCount.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}
+				fMaintenceThreadsCount.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		
 	}
+
 
 	private void createRunnableClerk() {
 		Object lock = new Object();
@@ -167,12 +158,12 @@ public class Management {
 				new Runnable() {
 					@Override
 					public void run() {
-						flagForRepair();
+						startRepair();
 					};
 				});
 		for(ClerkDetails clerk: fClerkDetails)
 			(new Thread(new RunnableClerk(clerk, fRentalRequests, fAssets,
-					totalNewNumber, lock, fRequestsFinishedByClerk,
+					totalNewNumber, lock,
 					newShift))).start();
 		
 	}
@@ -180,8 +171,9 @@ public class Management {
 		// TODO Auto-generated method stub
 	}
 
-
-    public void addRentalRequest(RentalRequest rentalRequest){}
+	public void addRentalRequest(RentalRequest rentalRequest) {
+		fRentalRequests.add(rentalRequest);
+	}
 	
 
 }

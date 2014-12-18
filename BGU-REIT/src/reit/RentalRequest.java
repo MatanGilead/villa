@@ -8,10 +8,15 @@ public class RentalRequest {
 	private Asset fAsset;
 	private String fRequestStatus;
 
-
+/**
+ * Create a new RentalRequest.
+ * @param id id of the rentalRequest.
+ * @param assetType	the state of the RentalRequest.
+ * @param assetSize	the required asset size.
+ * @param durationOfStay the days requested.
+ */
 public RentalRequest(int id, String assetType, double assetSize,
 			int durationOfStay) {
-	//constructor with parameters
 	this.fId =id;
 	this.fAssetType = assetType;
 	this.fAssetSize = assetSize;
@@ -19,18 +24,48 @@ public RentalRequest(int id, String assetType, double assetSize,
 		this.fAsset = null;
 		this.fRequestStatus = "INCOMPLETE";
 	}
-
-public synchronized void setRequestStatus(String state){
-
+/**
+ * Change the type of the current rentalRequest. can be INCOMPLETE,FULLFILLED,INPROGRESS,COMPLETE.
+ * @param state
+ */
+	public void setRequestStatus(String state) {
+	fRequestStatus=state;
 }
 
+	/**
+	 * Set a an asset, should be an asset which fulfill the requirements.
+	 * 
+	 * @param foundOne
+	 */
 public void setAsset(Asset foundOne) {
-	// TODO Auto-generated method stub
+		fAsset = foundOne;
 	
 }
 
-public String getRentalRequestStatus(){
-	return fRequestStatus;
-}
+	/**
+	 * Returns the type of the rental request.
+	 * 
+	 * @return type
+	 */
+	public String getRentalRequestStatus(){
+		return fRequestStatus;
+	}
+	
+	/**
+	 * Return the number of days requested.
+	 * @return days.
+	 */
+	public int getDurationOfStay() {
+		return fDurationOfStay;
+	}
+
+	/**
+	 * Return requested size.
+	 * 
+	 * @return size
+	 */
+	public double getAssetSize() {
+		return fAssetSize;
+	}
 
 }

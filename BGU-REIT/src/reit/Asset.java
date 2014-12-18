@@ -24,27 +24,91 @@ public class Asset {
 		fHealth = 100;
 	}
 	
+	/**
+	 * Returns the location of the asset;
+	 * 
+	 * @return the location.
+	 */
 	public Location getLocation(){
 		//return location
 		return fLocation;
 	}
-	
+
+	/**
+	 * Add's an AssetContent to the AssetContent list.
+	 * 
+	 * @param assetContent
+	 *            assetContent the content.
+	 */
 	public void addAssetContent(AssetContent assetContent){
 		//add asset content to the asset content collection
 		fAssetContent.add(assetContent);
 	}
 
+	/**
+	 * Returns list of all AssetContents.
+	 * 
+	 * @return the list.
+	 */
 	public ArrayList<AssetContent> getContent() {
 		return fAssetContent;
 	}
 
+	/**
+	 * Returns health state.
+	 * 
+	 * @return remaining health number.
+	 */
 	public double getHealth() {
 		return fHealth;
 	}
 
-	/***/
+	/**
+	 * Changed Asset state to "AVAILABLE".
+	 */
 	public void setFixed() {
-		// TODO Auto-generated method stub
+		fStatus = "AVAILABLE";
+
+	}
+
+	/**
+	 * Returns the size of the asset.
+	 * 
+	 * @return the size.
+	 */
+	public int getAssetSize() {
+		return fSize;
+	}
+
+	/**
+	 * Returns true if the asset need to be repaired - "UNAVAILABLE".
+	 */
+	public boolean getBroken() {
+		if (fStatus.equals("UNAVAILABLE"))
+			return true;
+		return false;
+	}
+
+	/**
+	 * Changed Asset state to "UNAVAILABLE".
+	 */
+	public void setBroken() {
+		fStatus = "UNAVAILABLE";
+	}
+
+	/**
+	 * Returns true if the asset is "AVAILABLE".
+	 */
+	public boolean isAvailable() {
+		return fStatus.equals("AVAILABLE");
+	}
+
+	/**
+	 * Set the state of the asset to be "BOOKED" used if the asset has been
+	 * booked by an asset for a rental request.
+	 */
+	public void setBooked() {
+		fStatus = "BOOKED";
 
 	}
 }

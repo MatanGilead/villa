@@ -10,7 +10,6 @@ public class RunnableClerk implements Runnable {
 	private BlockingQueue<RentalRequest> fRentalRequests;
 	private Assets fAssets;
 	private AtomicInteger fNumRentalRequests; 
-	private AtomicInteger fRequestsfinishedByClerk;
 	private Object fLock; // used for continueRunning
 
 	private CyclicBarrier fNewShift;
@@ -20,11 +19,10 @@ public class RunnableClerk implements Runnable {
 	public RunnableClerk(ClerkDetails ClerkDetails,
 			BlockingQueue<RentalRequest> RentalRequests, Assets Assets,
 			AtomicInteger NumRentalRequests, Object Lock,
-			AtomicInteger RequestsRemainByClerk, CyclicBarrier NewShift) {
+			CyclicBarrier NewShift) {
 		fClerkDetails = ClerkDetails;
 		fRentalRequests = RentalRequests;
 		fAssets = Assets;
-		fRequestsfinishedByClerk = RequestsRemainByClerk;
 		fNumRentalRequests = NumRentalRequests;
 		fLock = Lock;
 		fNewShift = NewShift;
@@ -41,7 +39,8 @@ public class RunnableClerk implements Runnable {
 			if(rentalRequest==null) endDay();	//no need for a clerk
 			
 			//check for a good asset . Assets need to update Asset to booked, so this result will always be relevant
-			Asset foundOne=fAssets.find(rentalRequest); 
+
+			Asset foundOne = findAsset(rentalRequest);
 			double distance = foundOne.getLocation().CalculateDistance(
 					fClerkDetails.getLocation());
 			goToSleep((int) distance);
@@ -51,6 +50,24 @@ public class RunnableClerk implements Runnable {
 			}
 		if (!fSlept)
 			endDay();
+	}
+
+	private Asset findAsset(RentalRequest rentalRequest) {
+		synchronized(fClerkDetails){
+			Asset asset=null;
+			while(asset==null){
+				asset=fAssets.find(rentalRequest);
+				if (asset == null) {
+					try {
+						fClerkDetails.wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			return asset;
+		}
 	}
 
 	private void endDay() {
@@ -78,7 +95,7 @@ public class RunnableClerk implements Runnable {
 					try {
 						rentalRequest=fRentalRequests.take();
 						fNumRentalRequests.decrementAndGet(); //one rental request has been managed
-						fRequestsfinishedByClerk.incrementAndGet();
+
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
