@@ -8,6 +8,7 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 
 
@@ -25,7 +26,7 @@ public class Management {
 	private Semaphore fMaintenceThreadsCount; // used for maitance threads
 	private int fTotalNumberOfRentalRequest;
 	private CountDownLatch fCountDownLatch;
-
+	private Logger logger;
 	// RunnableMaintenanceRequest blocking queue---semaphore--
 	//we will use countDownLatch, set to num of rentalRequests to printout statistics.. we will do -1 whan the rental will complete
 	//every Runnable clerk will know  if he needs to continue his life cycle by his rental requests number------------
@@ -52,6 +53,7 @@ public class Management {
 		fStatistics=new Statistics();
 		fRentalRequests = new LinkedBlockingQueue<RentalRequest>();
 		fMaintenceThreadsCount = new Semaphore(0, true);
+		logger = MyLogger.getLogger("Management");
 
 	}
 	public void addMaintancePersons(int numOfMaintancePersons) {
@@ -65,6 +67,7 @@ public class Management {
 
 	public void FixAsset(DamageReport report, RentalRequest rentalRequest)
 	{
+		report.getAsset().reduceHealth(report.getDamagePercentage());
 		fStatistics.addDamageReport(report, rentalRequest);
 		if (report.getAsset().getHealth() > 65) {
 			report.getAsset().setFixed();
@@ -90,30 +93,12 @@ public class Management {
 	public void addItemRepairTool(String name, ArrayList<RepairToolInformation> tool) {
 		fRepairToolsInfo.put(name, tool);
 	}
-	/*	ArrayList<RepairToolInformation> toolList = repairToolsInfo.get(name);
-		if (!(toolList == null))
-			toolList.add(tool);
-		else {
-			toolList = new ArrayList<RepairToolInformation>();
-			toolList.add(tool);
-			repairToolsInfo.put(name, toolList);
-		}
-*/
-	
-
 
     //change it so we won't send the whole collection!!
 	public void addItemRepairMaterial(String name, ArrayList<RepairMaterialInformation> material) {
 		fRepairMaterialsInfo.put(name, material);
 	}
 	
-	/*
-	 * ArrayList<RepairMaterialInformation> materialList = repairMaterialsInfo
-	 * .get(name); if (!(materialList == null)) materialList.add(material); else
-	 * { materialList = new ArrayList<RepairMaterialInformation>();
-	 * materialList.add(material);
-	 */	
-		
 	public void addClerk(ClerkDetails clerk) {
 		fClerkDetails.add(clerk);
 	}
@@ -127,9 +112,17 @@ public class Management {
 	}
 
 	public void start() {
-		new Thread(fStatistics).start();
+		logger.info("BGU-REIT is in progress!");
+		logger.info("Clerks shift has started!");
 		createRunnableCustomersGroup();
 		createRunnableClerk();
+		try {
+			fCountDownLatch.await();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		fStatistics.print();
 
 	}
 
@@ -142,6 +135,7 @@ public class Management {
 				}
 			try {
 				fMaintenceThreadsCount.wait();
+				logger.info("Clerks shift has started!");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -158,6 +152,7 @@ public class Management {
 				new Runnable() {
 					@Override
 					public void run() {
+						logger.info("Clerk's its time to rest! end shift!");
 						startRepair();
 					};
 				});

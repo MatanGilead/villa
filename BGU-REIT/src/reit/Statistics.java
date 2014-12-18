@@ -2,29 +2,21 @@ package reit;
 
 import java.util.HashMap;
 import java.util.Vector;
-import java.util.concurrent.CountDownLatch;
 
-public class Statistics implements Runnable {
+public class Statistics {
 	private double fMoneyGained;
 	private Vector<RentalRequest> fRentals;
 	private HashMap<String, Integer> fRepairMaterials;
 	private HashMap<String, Integer> fRepairTools;
-	private CountDownLatch fCountDownLatch;
 
-	public void run() {
-		try {
-			fCountDownLatch.await();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		print();
-		
-		//now wait
-		
+	public Statistics() {
+		fMoneyGained = 0;
+		fRentals = new Vector<RentalRequest>();
+		fRepairMaterials = new HashMap<String, Integer>();
+		fRepairTools = new HashMap<String, Integer>();
 	}
 
-	private void print() {
+	protected void print() {
 		/*
 		 * StringBuilder string=new StringBuilder();
 		 * StringBuilder.append(fRentals.toString()); fRepairTools.toString();
@@ -41,7 +33,7 @@ public class Statistics implements Runnable {
 	}
 
 	public void addDamageReport(DamageReport report, RentalRequest rentalRequest) {
-		report.getAsset().
+		// report.getAsset().
 		
 	}
 }

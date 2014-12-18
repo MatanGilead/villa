@@ -13,6 +13,7 @@ import driver.Assets;
 import driver.CustomersGroups;
 import driver.REIT;
 
+
 public class Drive {
 	public static void main(String[] args) {
 		Management management = new Management();
@@ -20,8 +21,7 @@ public class Drive {
 		createAssetContentsRepairDetails(management);
 		createCustomersGroup(management);
 		createReit(management);
-		
-		// management.start();
+		management.start();
 	}
 
 	/**

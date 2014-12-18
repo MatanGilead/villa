@@ -52,7 +52,17 @@ public void setAsset(Asset foundOne) {
 	}
 	
 	/**
+	 * Returns the id of the rental request.
+	 * 
+	 * @return id
+	 */
+	public int getId() {
+		return fId;
+	}
+
+	/**
 	 * Return the number of days requested.
+	 * 
 	 * @return days.
 	 */
 	public int getDurationOfStay() {

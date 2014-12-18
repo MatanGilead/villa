@@ -111,5 +111,15 @@ public class Asset {
 		fStatus = "BOOKED";
 
 	}
+
+	public void reduceHealth(double damagePercentage) {
+		fHealth=fHealth-fHealth;
+		fHealth=Math.min(fHealth,100);
+		fHealth=Math.max(fHealth,0);		
+	}
+
+	public String getName() {
+		return fName;
+	}
 }
 
