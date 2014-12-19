@@ -29,7 +29,7 @@ public class RunnableCustomerGroupManager implements Runnable {
 		RentalRequest newRentalRequest=fCustomerGroupDetails.sendRentalRequest();
 		fRentalRequests.add(newRentalRequest);
 		
-		while (newRentalRequest.getRentalRequestStatus()!= "Fulfilled"){ 
+		while (newRentalRequest.getRentalRequestStatus()!= "FULFILLED"){ 
 			try {
 				newRentalRequest.wait();
 			} catch (InterruptedException e) {
@@ -43,7 +43,7 @@ public class RunnableCustomerGroupManager implements Runnable {
 		int indexOfAsset=fAssets.findAssetByName(assetName); //find asset index in assets
 		Asset usedAsset=fAssets.findAssetByIndex(indexOfAsset); //find asset in assets
 		usedAsset.setOccupied(); //update asset status
-		newRentalRequest.setRequestStatus("InProgress"); //update request status
+		newRentalRequest.setRequestStatus("INPROGRESS"); //update request status
 		
 		
 
@@ -70,7 +70,7 @@ public class RunnableCustomerGroupManager implements Runnable {
 			} catch (ExecutionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} //wait till every customers finish his stay in asset
+			} //wait till every customer finish his stay in asset
 		}
 		
 		executorS.shutdown(); 
@@ -81,7 +81,7 @@ public class RunnableCustomerGroupManager implements Runnable {
 			usedAsset.setFixed();
    
 		
-		newRentalRequest.setRequestStatus("Complete");
+		newRentalRequest.setRequestStatus("COMPLETE");
 		//change request status to finished, can go to the next request (while loop from here or main)
 
 		DamageReport newDamageReport= new DamageReport(usedAsset,TotalAssetDamage); //create new damage report
