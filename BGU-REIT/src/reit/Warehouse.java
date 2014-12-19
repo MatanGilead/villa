@@ -11,12 +11,25 @@ public class Warehouse {
 	private HashMap<String, RepairMaterial> materials;
 	private HashMap<String, RepairTool> tools;
 
+	// private Logger logger;
 	public Warehouse(){
 		materials = new HashMap<String, RepairMaterial>();
 		tools = new HashMap<String, RepairTool>();
+		// logger = MyLogger.getLogger("Warehouse");
 	}
 
-
+	/**
+	 * Give tools to the repairman. Method of work: Check if the warehouse
+	 * private collection contains the tool. a. if true: grab the tool special
+	 * lock, check then the tools is still exist(if not, go to b) and check the
+	 * next tool. b. if not - release all the locks and wait for this specific
+	 * tool, then start over the search. if all the tools locks have been
+	 * acquired, grab the items and release the locks!
+	 * 
+	 * @param requiredTools
+	 *            required tools by repair man, needed to be ordered
+	 *            lexicographically.
+	 */
 	public void AcquireTool(TreeMap<String, Integer> requiredTools) {
 		boolean hasItems = false;
 		Stack<Semaphore> locks=new Stack<Semaphore>();
@@ -30,24 +43,26 @@ public class Warehouse {
 							hasItems=false;
 							waitForTools(tool,locks);
 						}
-						else{
+				}
+				if (hasItems) {
 							getLock(tool);
 							locks.add(tool.getLock());
-							if(tool.getQuantity()<requiredTools.get(tool.getName())) {
-								hasItems=false;
-								waitForTools(tool,locks);
+					synchronized (tool) {
+						if (tool.getQuantity() < requiredTools.get(tool
+								.getName())) {
+							hasItems = false;
+							waitForTools(tool, locks);
 								}
-						}
 					}
-				}
+						}
 			}
-
-		if (hasItems = false) System.out.println("ERROR IN WAREHOUSE");
+		}
 		for (Entry<String, Integer> tool : requiredTools.entrySet()) {
 			RepairTool currentTool = tools.get(tool.getKey());
 			currentTool.setQuantity(currentTool.getQuantity() - tool.getValue());
 		}
 		for(Semaphore lock: locks) lock.release();
+
 	}
 	
 

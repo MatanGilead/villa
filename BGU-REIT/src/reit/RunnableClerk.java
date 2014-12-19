@@ -52,7 +52,9 @@ public class RunnableClerk implements Runnable {
 			rentalRequest.setAsset(foundOne);
 			logger.info("Clerk "+fClerkDetails.getName()+" finished dealing with rentalrequest "+rentalRequest.getId());
 			rentalRequest.setRequestStatus("FULLFILLED");
-			rentalRequest.notifyAll();
+			synchronized (rentalRequest) {
+				rentalRequest.notifyAll();
+			}
 			endDay();
 			}
 		if (!fNeedToGo && !fSlept)

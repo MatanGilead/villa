@@ -13,7 +13,6 @@ public class Asset {
 	private int fSize;
 	private double fHealth; // beteen 0 to 100, including edges
 
-
 	public Asset(String name,String type,Location location,String status,int costPetInt,int size){
 		//constructor with parameters
 		fName=name;
@@ -58,10 +57,10 @@ public class Asset {
 	/**
 	 * Returns health state.
 	 * 
-	 * @return remaining health number.
+	 * @return remaining health number > 65.
 	 */
-	public double getHealth() {
-		return fHealth;
+	public boolean getHealth() {
+		return fHealth < 65;
 	}
 
 	/**
@@ -70,7 +69,7 @@ public class Asset {
 	public void setFixed() {
 		fStatus = "AVAILABLE";
 
-	}//better change function name to available. there is also available status after use when there is no need in fix
+	}
 
 	/**
 	 * Returns the size of the asset.
@@ -117,10 +116,19 @@ public class Asset {
 		fStatus = "OCCUPIED";
 	}//we can just use a single setStatus function for all status types
 
-	public void reduceHealth(double damagePercentage) {
+	public boolean reduceHealth(double damagePercentage) {
 		fHealth=fHealth-fHealth;
 		fHealth=Math.min(fHealth,100);
-		fHealth=Math.max(fHealth,0);		
+		fHealth = Math.max(fHealth, 0);
+		if (fHealth >= 65){
+			fStatus = "AVAILABLE";
+			return true;
+		}
+		else {
+			fStatus = "UNAVAILABLE";
+			return false;
+		}
+
 	}
 
 	public String getName() {
@@ -130,5 +138,17 @@ public class Asset {
 	public int getCostPerInt() {
 		return fCostPerInt;
 	}
-}
+
+	public double CalculateSleepTime() {
+		double sleepTime=0;
+		for (AssetContent assetContent : fAssetContent)
+			sleepTime = sleepTime + (100-fHealth) * assetContent.getMultiplier();
+		return sleepTime;
+
+	}
+
+	public int CalculateGain(int duration) {
+		return fCostPerInt * duration;
+	}
+	}
 

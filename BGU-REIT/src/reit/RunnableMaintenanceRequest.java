@@ -62,11 +62,7 @@ public class RunnableMaintenanceRequest implements Runnable {
 	}
 
 	private void goToSleep() {
-		ArrayList<AssetContent> assetContentList = fAsset.getContent();
-		double sleepTime = 0;
-		for (AssetContent assetContent : assetContentList) {
-			sleepTime = sleepTime + (100-fAsset.getHealth()) * assetContent.getMultiplier();
-		}
+		double sleepTime = fAsset.CalculateSleepTime();
 		try {
 			logger.info("Simulating fix for asset" + fAsset.getName()
 					+ "  by sleeping " + sleepTime);
@@ -115,9 +111,11 @@ public class RunnableMaintenanceRequest implements Runnable {
 	} catch (InterruptedException e) {
 		e.printStackTrace();
 	}
-		synchronized (fCountDownLatch) {
-	if(fMaintenceThreadsCount.availablePermits()==0) fMaintenceThreadsCount.notifyAll();
-	}
-}
+		synchronized (fMaintenceThreadsCount) {
+	if(fMaintenceThreadsCount.availablePermits()==0) {
+				fMaintenceThreadsCount.notifyAll();
 
+			}
+		}
+	}
 }

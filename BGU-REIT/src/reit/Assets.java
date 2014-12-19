@@ -47,7 +47,7 @@ public class Assets {
 	 *            asset that may be suitable.
 	 * @return returns true if there is a match, else false.
 	 */
-	private boolean setFound(RentalRequest request, Asset asset) { //should be public?
+	private boolean setFound(RentalRequest request, Asset asset) {
 		synchronized (asset) {
 			if (asset.getAssetSize() >= request.getAssetSize()
 					&& asset.isAvailable()) {
@@ -78,7 +78,6 @@ public class Assets {
 		fAssets.add(asset);
 		
 	}
-	
 
 	/**
 	 * 

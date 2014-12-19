@@ -32,27 +32,34 @@ public class Statistics {
 
 	public void addMaterials(TreeMap<String, Integer> allRequiredMaterials) {
 		for (Entry<String, Integer> set : allRequiredMaterials.entrySet()) {
-			boolean containsKey=fRepairMaterials.containsKey(set.getKey());
-			synchronized(fRepairMaterials) {
-				if (containsKey) fRepairMaterials.get(set.getKey()).addAndGet(set.getValue());
-				else fRepairMaterials.put(set.getKey(), new AtomicInteger(set.getValue()));
-				}
+			boolean containsKey = fRepairMaterials.containsKey(set.getKey());
+			synchronized (fRepairMaterials) {
+				if (containsKey)
+					fRepairMaterials.get(set.getKey())
+							.addAndGet(set.getValue());
+				else
+					fRepairMaterials.put(set.getKey(),
+							new AtomicInteger(set.getValue()));
 			}
 		}
-	
+	}
+
 	public void addTools(TreeMap<String, Integer> allRequiredTools) {
 		for (Entry<String, Integer> set : allRequiredTools.entrySet()) {
-			boolean containsKey=fRepairTools.containsKey(set.getKey());
-			synchronized(fRepairTools) {
-			if (containsKey) fRepairTools.get(set.getKey()).addAndGet(set.getValue());
-			else fRepairTools.put(set.getKey(), new AtomicInteger(set.getValue()));
-				}
+			boolean containsKey = fRepairTools.containsKey(set.getKey());
+			synchronized (fRepairTools) {
+				if (containsKey)
+					fRepairTools.get(set.getKey()).addAndGet(set.getValue());
+				else
+					fRepairTools.put(set.getKey(),
+							new AtomicInteger(set.getValue()));
+			}
 		}
 	}
 
 	public void addDamageReport(DamageReport report, RentalRequest rentalRequest) {
 		fMoneyGained.addAndGet(report.getAsset().getCostPerInt()*rentalRequest.getDurationOfStay());
 		fRentals.add(rentalRequest);
-		
+
 	}
 }

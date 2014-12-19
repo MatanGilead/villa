@@ -68,13 +68,15 @@ public class Management {
 
 	public void FixAsset(DamageReport report, RentalRequest rentalRequest)
 	{
-		report.getAsset().reduceHealth(report.getDamagePercentage());
+		boolean stillGood = report.runReportImplications();
 		fStatistics.addDamageReport(report, rentalRequest);
-		if (report.getAsset().getHealth() > 65) {
-			report.getAsset().setFixed();
-			for (ClerkDetails customer:fClerkDetails) customer.notifyAll();
+		if (stillGood) {
+			for (ClerkDetails customer : fClerkDetails) {
+				synchronized (customer) {
+					customer.notifyAll();
+				}
 			}
-		else report.getAsset().setBroken();
+		}
 	}
 
 	
@@ -130,7 +132,7 @@ public class Management {
 	public void startRepair() {
 		ArrayList<Asset> brokenList = fAssets.getBroken();
 			fMaintenceThreadsCount.release(brokenList.size());
-			synchronized(fCountDownLatch){
+		synchronized (fMaintenceThreadsCount) {
 				for(Asset asset: brokenList){
 					new Thread(new RunnableMaintenanceRequest(fRepairMaterialsInfo, fRepairToolsInfo, asset, fWarehouse, fMaintancePersons, fMaintenceThreadsCount, fCountDownLatch, fStatistics)).start();
 				}
