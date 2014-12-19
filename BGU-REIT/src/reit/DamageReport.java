@@ -1,7 +1,7 @@
 package reit;
 
 public class DamageReport {
-	private Asset fAsset;
+	private Asset fAsset; 
 	private double fDamagePercentage;
 
 	/**

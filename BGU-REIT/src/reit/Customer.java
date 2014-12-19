@@ -1,5 +1,7 @@
 package reit;
 
+import java.util.Random;
+
 public class Customer {
 	private String fName;
 	private String fVandalismType;
@@ -15,7 +17,16 @@ public class Customer {
 		fMaxDamage = MaxDamage;
 	}
 	public double CalculateDamage() {
-		//calculate customer's damage
-		return 0;
+		//calculate customer's damage 
+		double damageValue;
+		if (fVandalismType=="ARBITRARY"){
+			Random random = new Random();
+			damageValue=fMinDamage+(fMaxDamage-fMinDamage)*random.nextDouble();
+		}if (fVandalismType=="FIXED"){
+			damageValue=(fMinDamage+fMaxDamage)/2;
+		}else
+			damageValue=0.5;
+
+		return damageValue;
 	}
 }

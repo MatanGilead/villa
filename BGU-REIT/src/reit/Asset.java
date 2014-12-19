@@ -13,6 +13,7 @@ public class Asset {
 	private int fSize;
 	private double fHealth; // beteen 0 to 100, including edges
 
+
 	public Asset(String name,String type,Location location,String status,int costPetInt,int size){
 		//constructor with parameters
 		fName=name;
@@ -69,7 +70,7 @@ public class Asset {
 	public void setFixed() {
 		fStatus = "AVAILABLE";
 
-	}
+	}//better change function name to available. there is also available status after use when there is no need in fix
 
 	/**
 	 * Returns the size of the asset.
@@ -94,7 +95,7 @@ public class Asset {
 	 */
 	public void setBroken() {
 		fStatus = "UNAVAILABLE";
-	}
+	} //better change function name to setStatusUnavailalbe
 
 	/**
 	 * Returns true if the asset is "AVAILABLE".
@@ -111,6 +112,10 @@ public class Asset {
 		fStatus = "BOOKED";
 
 	}
+	
+	public void setOccupied(){
+		fStatus = "OCCUPIED";
+	}//we can just use a single setStatus function for all status types
 
 	public void reduceHealth(double damagePercentage) {
 		fHealth=fHealth-fHealth;

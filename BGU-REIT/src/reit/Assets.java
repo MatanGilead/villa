@@ -47,7 +47,7 @@ public class Assets {
 	 *            asset that may be suitable.
 	 * @return returns true if there is a match, else false.
 	 */
-	private boolean setFound(RentalRequest request, Asset asset) {
+	private boolean setFound(RentalRequest request, Asset asset) { //should be public?
 		synchronized (asset) {
 			if (asset.getAssetSize() >= request.getAssetSize()
 					&& asset.isAvailable()) {
@@ -59,6 +59,18 @@ public class Assets {
 		}
 	}
 
+	public int findAssetByName(String assetName){
+			int i=0;
+			boolean found=false;
+			while((!found)&&i<fAssets.size()){
+			if (fAssets.get(i).getName()==assetName) found=true;
+			else
+				i++;
+			}
+			return i; //must find the asset. returns it's index
+	}
+
+	
 	/**
 	 * Add an asset to the collection, Call from management.;
 	 */
@@ -66,6 +78,7 @@ public class Assets {
 		fAssets.add(asset);
 		
 	}
+	
 
 	/**
 	 * 
@@ -78,6 +91,12 @@ public class Assets {
 			 if (borkenAsset.getBroken()) brokenList.add(borkenAsset);
 		 }
 		 return brokenList;
+	}
+	public Asset findAssetByIndex(int index) {
+		// TODO Auto-generated method stub
+		if ((fAssets.size()+1>index)&&(index>-1))
+		return fAssets.get(index);
+		else return null;
 	} 
 
 }

@@ -2,13 +2,33 @@ package reit;
 
 import java.util.concurrent.Callable;
 
-public class CallableSimulateStayInAsset implements Callable<Double> {
+public class CallableSimulateStayInAsset implements Callable<CallableSimulateStayInAsset> {
 
+	private Customer fCustomer;
+	private int fStayDuration;
+	private double fDamageToAsset;
+	//private Asset asset;
+	
+	public CallableSimulateStayInAsset(Customer customer, int duration, double damage){
+		fCustomer=customer;
+		fStayDuration= duration;
+		fDamageToAsset=damage;
+	}
+	
+	public double getDamage(){
+		return fDamageToAsset;
+	}
+	
 	@Override
-	public Object call() throws Exception {
+	public CallableSimulateStayInAsset call() throws Exception {
 		// TODO Auto-generated method stub
-		wait();
-		return null;
+		try{
+			double durationInSec=fStayDuration*24; // a day in the simulation is 24 sec
+			Thread.sleep((long)(durationInSec*1000)); //converted to milliseconds
+		}catch(InterruptedException e){}
+		//wait();
+		fDamageToAsset=fCustomer.CalculateDamage();
+		return this;
 	}
 
 }

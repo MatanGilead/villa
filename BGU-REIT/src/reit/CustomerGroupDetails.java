@@ -68,4 +68,13 @@ public class CustomerGroupDetails {
 		return fGroupManagerName;
 	}
 
+	public int getNumberOfCustomersInGroup(){
+		return fCustomers.size();
+	}
+
+	public Customer getCustomer(int index){
+		return fCustomers.get(index);
+	}
+
+
 }

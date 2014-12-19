@@ -1,70 +1,93 @@
 package reit;
 
 import java.util.ArrayList;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 
 public class RunnableCustomerGroupManager implements Runnable {
 
 	private CustomerGroupDetails fCustomerGroupDetails;
-	private Management management;
-	private Asset fAsset;
+	private BlockingQueue<RentalRequest> fRentalRequests;
+	private ArrayList<DamageReport> fDamageReports;
+	private Assets fAssets;
 	
-	//CallableSimulateStayInAsset
-
 	
+	public RunnableCustomerGroupManager(CustomerGroupDetails customerGroupD, BlockingQueue<RentalRequest> rentalRequests, Assets assets){
+	fCustomerGroupDetails=customerGroupD;
+	fRentalRequests=rentalRequests;
+	fAssets=assets;
+	}
 	
 	@Override
-	public void run() {
+	public synchronized void run() {
 		// TODO Auto-generated method stub
-		RentalRequest newRequest=fCustomerGroupDetails.sendRentalRequest();
-		management.addRentalRequest(newRequest);
-		while (newRequest.getRentalRequestStatus()!= "FULFILLED") sleep();
+		RentalRequest newRentalRequest=fCustomerGroupDetails.sendRentalRequest();
+		fRentalRequests.add(newRentalRequest);
 		
-		ArrayList<Customer> customers = fCustomerGroupDetails.getCustomers();
-		CallableSimulateStayInAsset CallableStay= new CallableSimulateStayInAsset();
-		FutureTask<Double> future = new FutureTask<Double>(CallableStay);
-	
-		ExecutorService executorS =  Executors.newFixedThreadPool(customers.size());
-		executorS.execute(future);
-
-		
-		//(CallableStay);
-		boolean listen = true;
-		while (listen) {
-			if (future.isDone()) {
-				Double result;
-				try {
-					result = future.get();
-					listen = false;
-					System.out.println(result);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-		}
-		if (future.isDone()){
-			double assetDamage=future.get();
-
+		while (newRentalRequest.getRentalRequestStatus()!= "Fulfilled"){ 
+			try {
+				newRentalRequest.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} //should be notified by clerk (notifyAll on retnalRequest)
 		}
 		
-	}
-		for (int i=0; i<customers.size();i++) 
+
+		String assetName = newRentalRequest.getAssetName(); //asset name
+		int indexOfAsset=fAssets.findAssetByName(assetName); //find asset index in assets
+		Asset usedAsset=fAssets.findAssetByIndex(indexOfAsset); //find asset in assets
+		usedAsset.setOccupied(); //update asset status
+		newRentalRequest.setRequestStatus("InProgress"); //update request status
 		
-			CallableSumulateStayInAsset();
 		
-		//sumulate sty in asset
-		//create damage report
+
+		int numOfCustomers = fCustomerGroupDetails.getNumberOfCustomersInGroup();
+		int stayDuration = newRentalRequest.getDurationOfStay();
+		ExecutorService executorS = Executors.newFixedThreadPool(numOfCustomers);
+		CompletionService<CallableSimulateStayInAsset> compServiceExecutor= new ExecutorCompletionService <CallableSimulateStayInAsset>(executorS);
 		
-	}
+		for (int i=0;i<numOfCustomers;i++){ //simulate stay in asset for every customer in group
+			Customer customer = fCustomerGroupDetails.getCustomer(i);
+			Callable<CallableSimulateStayInAsset> callableStay= new CallableSimulateStayInAsset(customer,stayDuration,0);
+			compServiceExecutor.submit(callableStay);
+		}
+		
+		double TotalAssetDamage=0;
+		for (int i=0;i<numOfCustomers;i++){
+			try {
+				CallableSimulateStayInAsset assetAfterCustomerStay;
+				assetAfterCustomerStay = compServiceExecutor.take().get();
+				TotalAssetDamage+=assetAfterCustomerStay.getDamage(); //calculate total damage
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} //wait till every customers finish his stay in asset
+		}
+		
+		executorS.shutdown(); 
+		usedAsset.reduceHealth(TotalAssetDamage);
+		if (usedAsset.getHealth()<65)
+			usedAsset.setBroken();
+		else
+			usedAsset.setFixed();
+   
+		
+		newRentalRequest.setRequestStatus("Complete");
+		//change request status to finished, can go to the next request (while loop from here or main)
+
+		DamageReport newDamageReport= new DamageReport(usedAsset,TotalAssetDamage); //create new damage report
+		fDamageReports.add(newDamageReport);		
 	
-	public void sleep(){
-		
 	}
-	
 
 }
+

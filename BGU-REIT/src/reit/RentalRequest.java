@@ -86,5 +86,10 @@ public void setAsset(Asset foundOne) {
 	public String getAssetType() {
 		return fAssetType;
 	}
+	
+	public String getAssetName(){
+		//use this function only when a suitable asset is found (asset is not null)
+		return fAsset.getName();
+	}
 
 }
