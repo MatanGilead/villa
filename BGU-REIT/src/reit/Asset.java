@@ -68,6 +68,7 @@ public class Asset {
 	 */
 	public void setFixed() {
 		fStatus = "AVAILABLE";
+		fHealth = 100;
 
 	}
 
@@ -116,11 +117,17 @@ public class Asset {
 		fStatus = "OCCUPIED";
 	}//we can just use a single setStatus function for all status types
 
+	public boolean isOccupied(){
+		if (fStatus.equals("OCCUPIED"))
+			return true;
+		return false;
+	}
+
 	public boolean reduceHealth(double damagePercentage) {
 		fHealth=fHealth-damagePercentage;
 		fHealth=Math.min(fHealth,100);
 		fHealth = Math.max(fHealth, 0);
-		if (fHealth >= 65){
+		if (fHealth > 65) {
 			fStatus = "AVAILABLE";
 			return true;
 		}
@@ -153,6 +160,10 @@ public class Asset {
 
 	public String getAssetType() {
 		return fType;
+	}
+
+	public double getHealth() {
+		return fHealth;
 	}
 	}
 

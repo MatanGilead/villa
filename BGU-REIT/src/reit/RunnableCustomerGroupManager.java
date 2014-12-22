@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
 public class RunnableCustomerGroupManager implements Runnable {
@@ -21,13 +22,13 @@ public class RunnableCustomerGroupManager implements Runnable {
 	private ArrayList<ClerkDetails> fClerkList;
 	private Statistics fStatistics;
 	private Logger logger;
-	private Boolean fKillClerks;
+	private AtomicBoolean fKillClerks;
 	private CountDownLatch fCountDownLatch;
 	private Semaphore fMaintenceThreadsCount;
 	public RunnableCustomerGroupManager(CustomerGroupDetails customerGroupD,
 			BlockingQueue<RentalRequest> rentalRequests, Assets assets,
 			ArrayList<ClerkDetails> clerkList, Statistics statistics,
-			CountDownLatch CountDownLatch, Boolean killClerks,
+			CountDownLatch CountDownLatch, AtomicBoolean killClerks,
 			Semaphore MaintenceThreadsCount) {
 	fCustomerGroupDetails=customerGroupD;
 	fRentalRequests=rentalRequests;
@@ -124,22 +125,23 @@ public class RunnableCustomerGroupManager implements Runnable {
 			for (ClerkDetails clerk : fClerkList) {
 				synchronized (clerk) {
 					clerk.notifyAll();
+					}
+			}
+			fCountDownLatch.countDown();
+		}
+			else{
+				synchronized(rentalRequest.getAsset()){
+					rentalRequest.getAsset().notifyAll();
 				}
 			}
 
 
-			fCountDownLatch.countDown();
-			if (fCountDownLatch.getCount() == 0) {
-				fKillClerks = true;
-				// synchronized (fMaintenceThreadsCount) {
-				// fMaintenceThreadsCount.notifyAll();
-				// }
-			}
-			System.out.println(fKillClerks);
+
+		System.out.println(fKillClerks);
 				System.out.println(fCountDownLatch.getCount());
 
 
-		}
+		
 	}
 
 }

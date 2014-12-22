@@ -8,7 +8,7 @@ h1 {font:normal 11pt Tahoma;}
 </style>
 </head>
 <body>
-<h1>Mon Dec 22 19:26:02 IST 2014</h1>
+<h1>Tue Dec 23 01:16:57 IST 2014</h1>
 <table border="0" cellpadding="5" cellspacing="3">
 <tr align="left">
 	<th style="width:10%">Loglevel</th>
@@ -17,336 +17,154 @@ h1 {font:normal 11pt Tahoma;}
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5 added a request id 14</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Ken Harush is looking for asset for1</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5wait for the clerk</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Bitton is looking for asset for3</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2recieves an asset</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Ken Harush found an asset! asset nameAsset 11</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2start staying process</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Wolfgang Eisenkott is looking for asset for10</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 3recieves an asset</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Ken Harush is going to sleep for48</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 3start staying process</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Bitton found an asset! asset nameAsset 53</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 1recieves an asset</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Die is looking for asset for12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 1start staying process</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Wolfgang Eisenkott found an asset! asset nameAsset 410</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2group has left the asset   Asset 5 damage:2.5</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Bitton is going to sleep for30</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2 added a request id 4</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Leonidas I is looking for asset for14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2wait for the clerk</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Die couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 3group has left the asset   Asset 4 damage:15.263764517676446</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Leonidas I couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 3 added a request id 11</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Wolfgang Eisenkott is going to sleep for40</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 3wait for the clerk</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Bitton finished dealing with rentalrequest 3</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5recieves an asset</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Bitton finished his shift! sleeping</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5start staying process</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Ken Harush finished dealing with rentalrequest 1</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5group has left the asset   Asset 4 damage:10.915867555999458</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Ken Harush finished his shift! sleeping</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5 added a request id 15</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Wolfgang Eisenkott finished dealing with rentalrequest 10</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5wait for the clerk</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Wolfgang Eisenkott finished his shift! sleeping</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 1group has left the asset   Asset 1 damage:13.257082380375392</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Die has woke up! Rental Request:12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 1 added a request id 2</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Leonidas I has woke up! Rental Request:14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 1wait for the clerk</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Die couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 4recieves an asset</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Leonidas I couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 4start staying process</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Die has woke up! Rental Request:12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2recieves an asset</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Leonidas I has woke up! Rental Request:14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2start staying process</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Leonidas I couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 1recieves an asset</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Die found an asset! asset nameAsset 112</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 1start staying process</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Die is going to sleep for48</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 3recieves an asset</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Die finished dealing with rentalrequest 12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 3start staying process</td>
+	<td>Dec 23,2014 01:16</td>
+	<td>Clerk Paula Die finished his shift! sleeping</td>
 </tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2group has left the asset   Asset 5 damage:2.5</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2 added a request id 5</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2wait for the clerk</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 3group has left the asset   Asset 2 damage:15.590693769395175</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 4group has left the asset   Asset 1 damage:17.48753417473454</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 4 added a request id 13</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 4wait for the clerk</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 1group has left the asset   Asset 3 damage:12.381347632737917</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2recieves an asset</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2start staying process</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5recieves an asset</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5start staying process</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2group has left the asset   Asset 5 damage:2.5</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2 added a request id 6</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2wait for the clerk</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 4recieves an asset</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 4start staying process</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2recieves an asset</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2start staying process</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 5group has left the asset   Asset 2 damage:12.310437586925428</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 4group has left the asset   Asset 1 damage:15.376282918270746</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2group has left the asset   Asset 5 damage:2.5</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2 added a request id 7</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2wait for the clerk</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2recieves an asset</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2start staying process</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2group has left the asset   Asset 5 damage:2.5</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2 added a request id 8</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2wait for the clerk</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2recieves an asset</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2start staying process</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2group has left the asset   Asset 5 damage:2.5</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2 added a request id 9</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2wait for the clerk</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2recieves an asset</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2start staying process</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 22,2014 19:26</td>
-	<td>Group 2group has left the asset   Asset 5 damage:2.5</td>
-</tr>
+</table>
+</body>
+</html>

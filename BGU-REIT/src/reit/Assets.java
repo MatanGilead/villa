@@ -1,6 +1,8 @@
 package reit;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Assets {
 
@@ -32,7 +34,8 @@ public class Assets {
 			// print
 			System.out.println(assaet.isAvailable() + "     "
 					+ assaet.getName() + "     " +
-					 assaet.isFaulty() + "         "
+ assaet.getHealth()
+					+ "         "
 					+ assaet.getAssetType() + "    " + assaet.getAssetSize());
 				
 		for(Asset asset: fAssets){
@@ -54,6 +57,7 @@ public class Assets {
 	 *            asset that may be suitable.
 	 * @return returns true if there is a match, else false.
 	 */
+
 	private boolean setFound(RentalRequest request, Asset asset) {
 		synchronized (asset) {
 			if (asset.isAvailable()) {
@@ -65,24 +69,12 @@ public class Assets {
 		}
 	}
 
-	public int findAssetByName(String assetName){
-			int i=0;
-			boolean found=false;
-			while((!found)&&i<fAssets.size()){
-			if (fAssets.get(i).getName()==assetName) found=true;
-			else
-				i++;
-			}
-			return i; //must find the asset. returns it's index
-	}
-
 	
 	/**
 	 * Add an asset to the collection, Call from management.;
 	 */
 	public void addAsset (Asset asset){
 		fAssets.add(asset);
-		
 	}
 
 	/**
@@ -93,15 +85,38 @@ public class Assets {
 		// TODO Auto-generated method stub
 		 ArrayList<Asset> brokenList=new ArrayList<Asset>();
 		 for(Asset borkenAsset: fAssets){
+
+			synchronized (borkenAsset) {
+				if (borkenAsset.isOccupied())
+				waitForAsset(borkenAsset);
+			}
 			 if (borkenAsset.getBroken()) brokenList.add(borkenAsset);
+
 		 }
 		 return brokenList;
 	}
-	public Asset findAssetByIndex(int index) {
-		// TODO Auto-generated method stub
-		if ((fAssets.size()+1>index)&&(index>-1))
-		return fAssets.get(index);
-		else return null;
-	} 
+
+	private void waitForAsset(Asset borkenAsset) {
+			try {
+				borkenAsset.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+	protected void sort(){
+		Collections.sort(fAssets, new Comparator<Asset>(){
+			public int compare(Asset s1, Asset s2) {
+				  if (s1.getAssetSize()>s2.getAssetSize()) return 1;
+				else
+					return -1;
+			 }
+		});
+	}
+
+
+
 
 }

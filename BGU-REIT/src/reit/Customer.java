@@ -27,6 +27,6 @@ public class Customer {
 		}else
 			damageValue=0.5;
 
-		return damageValue / 2;
+		return damageValue;
 	}
 }

@@ -3,6 +3,7 @@ package reit;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -14,13 +15,13 @@ public class RunnableClerk implements Runnable {
 	private Object fLock; // used for continueRunning
 	private Logger logger;
 	private CyclicBarrier fNewShift;
-	private Boolean fNeedToGo;
+	private AtomicBoolean killClerks;
 	private int fSleepTime;
 	private boolean fSlept;
 	public RunnableClerk(ClerkDetails ClerkDetails,
 			BlockingQueue<RentalRequest> RentalRequests, Assets Assets,
 			AtomicInteger NumRentalRequests, Object Lock,
-			CyclicBarrier NewShift, Boolean needToGo) {
+			CyclicBarrier NewShift, AtomicBoolean needToGo) {
 		fClerkDetails = ClerkDetails;
 		fRentalRequests = RentalRequests;
 		fAssets = Assets;
@@ -30,11 +31,12 @@ public class RunnableClerk implements Runnable {
 		fSlept = false;
 		fSleepTime = 0;
 		logger = MyLogger.getLogger("RunnableClerk");
-		fNeedToGo = needToGo;
+		killClerks = needToGo;
 	}
 
 	@Override
 	public void run() {
+
 		while (fNumRentalRequests.get() != 0) {
 			fSlept = false;
 			RentalRequest rentalRequest=takeRequest(); //and update the that request have been taking care of
@@ -57,9 +59,12 @@ public class RunnableClerk implements Runnable {
 			endDay();
 			}
 		}
-		if (!fNeedToGo && !fSlept)
+		while (killClerks.get() == false) {
+			System.out.println(killClerks);
 			endDay();
-		logger.info("Clerk " + fClerkDetails.getName() + "won the lotto");
+			}
+
+
 
 	}
 
@@ -122,9 +127,9 @@ public class RunnableClerk implements Runnable {
 
 	private void goToSleep(int distance) {
 		fSleepTime = fSleepTime + 2 * distance;
-		logger.info("Clerk "+fClerkDetails.getName()+" is going to sleep for"+fSleepTime);
+		logger.info("Clerk "+fClerkDetails.getName()+" is going to sleep for"+2*distance);
 		try {
-			Thread.sleep(2 * distance);
+			Thread.sleep(2 * distance);// *1000
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}

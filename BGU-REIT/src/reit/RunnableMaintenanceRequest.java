@@ -55,7 +55,9 @@ public class RunnableMaintenanceRequest implements Runnable {
 		goToSleep();
 
 		fWarehouse.ReleaseTool(allRequiredTools);
-		fAsset.setFixed();
+		synchronized (fAsset) {
+			fAsset.setFixed();
+		}
 		fStatistics.addTools(allRequiredTools);
 		fStatistics.addMaterials(allRequiredMaterials);
 		releaseRepairMan();
@@ -118,5 +120,6 @@ public class RunnableMaintenanceRequest implements Runnable {
 
 			}
 		}
+
 	}
 }

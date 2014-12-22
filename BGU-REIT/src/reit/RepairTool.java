@@ -4,28 +4,34 @@ import java.util.concurrent.Semaphore;
 
 public class RepairTool {
 	private String fName;
-	private int fQuantity;
-	private Semaphore fLock;
+	private Semaphore fQuantity;
+
 	public RepairTool(String name, int count) {
 		fName = name;
-		fQuantity = count;
-		fLock = new Semaphore(1, true);
-
+		fQuantity = new Semaphore(count);
+		// fLock = new Semaphore(1, true);
+		// private Semaphore fLock;
 	}
 
 	public String getName() {
 		return fName;
 	}
 
-	public Semaphore getLock() {
-		return fLock;
+	// public Semaphore getLock() {
+	// return fLock;
+	// }
+
+	// public Semaphore getQuantity() {
+	// return fQuantity;
+	// }
+
+	public boolean acquireTool(int quantity) {
+		return fQuantity.tryAcquire(quantity);
 	}
 
-	public int getQuantity() {
-		return fQuantity;
-	}
+
 
 	public void setQuantity(int quantity) {
-		fQuantity = quantity;
+		fQuantity.release(quantity);
 	}
 }

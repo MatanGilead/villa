@@ -3,9 +3,7 @@ package reit;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.Stack;
 import java.util.TreeMap;
-import java.util.concurrent.Semaphore;
 
 public class Warehouse {
 	private HashMap<String, RepairMaterial> materials;
@@ -32,73 +30,57 @@ public class Warehouse {
 	 */
 	public void AcquireTool(TreeMap<String, Integer> requiredTools) {
 		boolean hasItems = false;
-		Stack<Semaphore> locks=new Stack<Semaphore>();
 		while(hasItems==false){
 			hasItems=true;
-			for (Iterator<String> it = requiredTools.keySet().iterator(); it.hasNext() && hasItems;) {
-				String toolName = it.next();
+			for (Iterator<Entry<String, Integer>> it = requiredTools.entrySet().iterator(); it.hasNext() && hasItems;) {
+				Entry<String,Integer> set=it.next();
+				String toolName = set.getKey();
 				RepairTool tool=tools.get(toolName);
 					synchronized(tool){
-						if(tool.getQuantity()<requiredTools.get(tool.getName())) {
+					if (!tool.acquireTool(set.getValue())) {
 							hasItems=false;
-							waitForTools(tool,locks);
+							waitForTools(set,requiredTools);
 						}
 				}
-				if (hasItems) {
-							getLock(tool);
-							locks.add(tool.getLock());
-					synchronized (tool) {
-						if (tool.getQuantity() < requiredTools.get(tool
-								.getName())) {
-							hasItems = false;
-							waitForTools(tool, locks);
-								}
-					}
-						}
 			}
 		}
-		for (Entry<String, Integer> tool : requiredTools.entrySet()) {
-			RepairTool currentTool = tools.get(tool.getKey());
-			currentTool.setQuantity(currentTool.getQuantity() - tool.getValue());
-		}
-		for(Semaphore lock: locks) lock.release();
+
 
 	}
 	
+	private void waitForTools(Entry<String, Integer> set,
+			TreeMap<String, Integer> requiredTools) {
+		for (Iterator<Entry<String, Integer>> it = requiredTools.entrySet()
+				.iterator(); it.hasNext();) {
+			Entry<String, Integer> releaseTool = it.next();
+			if(set.equals(it)) break;
+			RepairTool warehouseTool = tools.get(releaseTool.getKey());
+			synchronized (warehouseTool) {
+				warehouseTool.setQuantity(releaseTool.getValue());
+				warehouseTool.notifyAll();
+			}
+		}
+		RepairTool waitForRepairTool = tools.get(set.getKey());
 
-
-	private void getLock(RepairTool tool) {
 		try {
-			tool.getLock().acquire();
+				waitForRepairTool.wait();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			}
 		}
-
-	}
-
-	private void waitForTools(RepairTool tool, Stack<Semaphore> locks) {
-		for(Semaphore lock: locks) lock.release();
-		try {
-			tool.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 
 	public void ReleaseTool(TreeMap<String, Integer> returnTools) {
 		for (Entry<String, Integer> tool : returnTools.entrySet()) {
 			RepairTool currentTool = tools.get(tool.getKey());
-			synchronized(tool){
-			currentTool.setQuantity(currentTool.getQuantity() + tool.getValue());
-				synchronized (currentTool) {
-					currentTool.notifyAll();
+			synchronized (currentTool) {
+				currentTool.setQuantity(tool.getValue());
+				currentTool.notifyAll();
 				}
 			}
 		}	
-	}
+
 
 
 	public void AcquireMaterial(TreeMap<String, Integer> requiredMaterials) {
