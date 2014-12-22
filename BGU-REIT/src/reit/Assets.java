@@ -28,8 +28,15 @@ public class Assets {
 	 * @return if an asset has been found - return it. else null.
 	 */
 	public Asset find(RentalRequest request) {
+		for (Asset assaet : fAssets)
+			// print
+			System.out.println(assaet.isAvailable() + "     "
+					+ assaet.getName() + "     " +
+					 assaet.isFaulty() + "         "
+					+ assaet.getAssetType() + "    " + assaet.getAssetSize());
+				
 		for(Asset asset: fAssets){
-			if (asset.getAssetSize() >= request.getAssetSize()	&& asset.isAvailable() && setFound(request,asset)) {
+			if (asset.getAssetSize() >= request.getAssetSize()	&& request.getAssetType().equals(asset.getAssetType()) && asset.isAvailable() && setFound(request,asset)) {
 					return asset;
 					
 			}
@@ -49,8 +56,7 @@ public class Assets {
 	 */
 	private boolean setFound(RentalRequest request, Asset asset) {
 		synchronized (asset) {
-			if (asset.getAssetSize() >= request.getAssetSize()
-					&& asset.isAvailable()) {
+			if (asset.isAvailable()) {
 				asset.setBooked();
 				return true;
 			}

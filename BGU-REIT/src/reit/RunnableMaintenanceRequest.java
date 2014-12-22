@@ -80,12 +80,13 @@ public class RunnableMaintenanceRequest implements Runnable {
 		for (AssetContent assetContent : assetContentList) {
 			ArrayList<RepairMaterialInformation> materialList=fRepairMaterialsInfo.get(assetContent.getName());
 			ArrayList<RepairToolInformation> toolList = fRepairToolsInfo.get(assetContent.getName());
+
 			for(RepairMaterialInformation material: materialList){
-				if(allRequiredMaterials.get(material.getName())!=null) allRequiredMaterials.put(material.getName(),material.getQuantity());
+				if(allRequiredMaterials.get(material.getName())==null) allRequiredMaterials.put(material.getName(),material.getQuantity());
 				else allRequiredMaterials.put(material.getName(),allRequiredMaterials.get(material.getName())+material.getQuantity());
 			}
 			for(RepairToolInformation tool: toolList){
-				if(allRequiredTools.get(tool.getName())!=null) allRequiredTools.put(tool.getName(),tool.getQuantity());
+				if(allRequiredTools.get(tool.getName())==null) allRequiredTools.put(tool.getName(),tool.getQuantity());
 				else allRequiredTools.put(tool.getName(),Math.max(allRequiredTools.get(tool.getName()),tool.getQuantity()));
 			}
 

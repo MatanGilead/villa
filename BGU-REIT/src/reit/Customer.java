@@ -19,14 +19,14 @@ public class Customer {
 	public double CalculateDamage() {
 		//calculate customer's damage 
 		double damageValue;
-		if (fVandalismType=="ARBITRARY"){
+		if (fVandalismType.equals("Arbitrary")) {
 			Random random = new Random();
 			damageValue=fMinDamage+(fMaxDamage-fMinDamage)*random.nextDouble();
-		}if (fVandalismType=="FIXED"){
+		} else if (fVandalismType.equals("Fixed")) {
 			damageValue=(fMinDamage+fMaxDamage)/2;
 		}else
 			damageValue=0.5;
 
-		return damageValue;
+		return damageValue / 2;
 	}
 }

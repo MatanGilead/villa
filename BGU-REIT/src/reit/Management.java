@@ -66,19 +66,6 @@ public class Management {
 		fTotalNumberOfRentalRequest = num;
 	}
 
-	public void FixAsset(DamageReport report, RentalRequest rentalRequest)
-	{
-		boolean stillGood = report.runReportImplications();
-		fStatistics.addDamageReport(report, rentalRequest);
-		if (stillGood) {
-			for (ClerkDetails customer : fClerkDetails) {
-				synchronized (customer) {
-					customer.notifyAll();
-				}
-			}
-		}
-	}
-
 	
 	public void addAsset(Asset asset){
 		//add asset to the assets collection
@@ -132,13 +119,16 @@ public class Management {
 	public void startRepair() {
 		ArrayList<Asset> brokenList = fAssets.getBroken();
 			fMaintenceThreadsCount.release(brokenList.size());
+			logger.info("cyclic barrier is on");
 		synchronized (fMaintenceThreadsCount) {
+
 				for(Asset asset: brokenList){
 					new Thread(new RunnableMaintenanceRequest(fRepairMaterialsInfo, fRepairToolsInfo, asset, fWarehouse, fMaintancePersons, fMaintenceThreadsCount, fCountDownLatch, fStatistics)).start();
 				}
 			try {
-				fMaintenceThreadsCount.wait();
-				if (fMaintenceThreadsCount.availablePermits() == 0)
+				if (brokenList.size() != 0)
+					fMaintenceThreadsCount.wait();
+				if (fCountDownLatch.getCount() == 0)
 					killClerks = true;
 				else
 				logger.info("Clerks shift has started!");
@@ -169,7 +159,11 @@ public class Management {
 		
 	}
 	private void createRunnableCustomersGroup() {
-		// TODO Auto-generated method stub
+		for (CustomerGroupDetails groupManager : fCustomerGroupDetails)
+			new Thread(new RunnableCustomerGroupManager(groupManager,
+					fRentalRequests, fAssets, fClerkDetails, fStatistics,
+					fCountDownLatch, killClerks, fMaintenceThreadsCount))
+					.start();
 	}
 
 	public void addRentalRequest(RentalRequest rentalRequest) {

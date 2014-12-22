@@ -1,11 +1,6 @@
-/AssetContentsRepairDetails.xml
-/AssetContentsRepairDetails.xsd
-/Assets.out.xml
-/Assets.xml
-/Assets.xsd
-/CustomersGroups.xml
-/CustomersGroups.xsd
-/InitialData.xml
-/InitialData.xsd
-/driver/
 /reit/
+/driver/
+/AssetContentsRepairDetails.xml
+/Assets.xml
+/CustomersGroups.xml
+/InitialData.xml

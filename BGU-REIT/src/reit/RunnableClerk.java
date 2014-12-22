@@ -39,10 +39,9 @@ public class RunnableClerk implements Runnable {
 			fSlept = false;
 			RentalRequest rentalRequest=takeRequest(); //and update the that request have been taking care of
 			if(rentalRequest==null) {
-				logger.info("Clerk "+fClerkDetails.getName()+"is fired! go to sleep for good.");
 				endDay();	//no need for a clerk
 			}
-			
+			else {
 			//check for a good asset . Assets need to update Asset to booked, so this result will always be relevant
 
 			Asset foundOne = findAsset(rentalRequest);
@@ -57,12 +56,17 @@ public class RunnableClerk implements Runnable {
 			}
 			endDay();
 			}
+		}
 		if (!fNeedToGo && !fSlept)
 			endDay();
+		logger.info("Clerk " + fClerkDetails.getName() + "won the lotto");
+
 	}
+
 
 	private Asset findAsset(RentalRequest rentalRequest) {
 		synchronized(fClerkDetails){
+			synchronized (rentalRequest) {
 			logger.info("Clerk " + fClerkDetails.getName()+ " is looking for asset for" + rentalRequest.getId());
 			Asset asset=null;
 			while(asset==null){
@@ -81,8 +85,8 @@ public class RunnableClerk implements Runnable {
 			logger.info("Clerk " + fClerkDetails.getName()+ " found an asset! asset name"+asset.getName() + rentalRequest.getId());
 			return asset;
 		}
+		}
 	}
-
 	private void endDay() {
 		if (fSleepTime >= 8 || fNumRentalRequests.get() == 0) {
 			if(fSleepTime >= 8) logger.info("Clerk "+ fClerkDetails.getName()+" finished his shift! sleeping");
@@ -120,7 +124,7 @@ public class RunnableClerk implements Runnable {
 		fSleepTime = fSleepTime + 2 * distance;
 		logger.info("Clerk "+fClerkDetails.getName()+" is going to sleep for"+fSleepTime);
 		try {
-			Thread.sleep(2 * distance * 1000);
+			Thread.sleep(2 * distance);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}

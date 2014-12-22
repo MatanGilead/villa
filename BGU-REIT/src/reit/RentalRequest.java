@@ -100,4 +100,8 @@ public class RentalRequest {
 		return fAsset.getName();
 	}
 
+	public Asset getAsset() {
+		return fAsset;
+	}
+
 }

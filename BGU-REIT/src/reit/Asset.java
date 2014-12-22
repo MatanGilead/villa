@@ -59,7 +59,7 @@ public class Asset {
 	 * 
 	 * @return remaining health number > 65.
 	 */
-	public boolean getHealth() {
+	public boolean isFaulty() {
 		return fHealth < 65;
 	}
 
@@ -117,7 +117,7 @@ public class Asset {
 	}//we can just use a single setStatus function for all status types
 
 	public boolean reduceHealth(double damagePercentage) {
-		fHealth=fHealth-fHealth;
+		fHealth=fHealth-damagePercentage;
 		fHealth=Math.min(fHealth,100);
 		fHealth = Math.max(fHealth, 0);
 		if (fHealth >= 65){
@@ -149,6 +149,10 @@ public class Asset {
 
 	public int CalculateGain(int duration) {
 		return fCostPerInt * duration;
+	}
+
+	public String getAssetType() {
+		return fType;
 	}
 	}
 

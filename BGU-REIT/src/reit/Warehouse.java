@@ -93,7 +93,9 @@ public class Warehouse {
 			RepairTool currentTool = tools.get(tool.getKey());
 			synchronized(tool){
 			currentTool.setQuantity(currentTool.getQuantity() + tool.getValue());
-			currentTool.notifyAll();
+				synchronized (currentTool) {
+					currentTool.notifyAll();
+				}
 			}
 		}	
 	}

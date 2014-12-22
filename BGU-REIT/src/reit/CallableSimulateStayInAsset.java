@@ -24,7 +24,8 @@ public class CallableSimulateStayInAsset implements Callable<CallableSimulateSta
 		// TODO Auto-generated method stub
 		try{
 			double durationInSec=fStayDuration*24; // a day in the simulation is 24 sec
-			Thread.sleep((long)(durationInSec*1000)); //converted to milliseconds
+			Thread.sleep((long) (durationInSec * 2)); // converted to
+														// milliseconds
 		}catch(InterruptedException e){}
 		//wait();
 		fDamageToAsset=fCustomer.CalculateDamage();

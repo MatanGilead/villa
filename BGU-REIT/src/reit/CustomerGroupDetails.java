@@ -29,6 +29,9 @@ public class CustomerGroupDetails {
 		fCustomers.add(customer);
 	}
 
+	public boolean isEmptyRentalRequest() {
+		return fRentalRequests.isEmpty();
+	}
 	/**
 	 * add rental requests for the group.
 	 * 
