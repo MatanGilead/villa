@@ -8,7 +8,7 @@ h1 {font:normal 11pt Tahoma;}
 </style>
 </head>
 <body>
-<h1>Tue Dec 23 01:16:57 IST 2014</h1>
+<h1>Sat Dec 27 22:52:19 IST 2014</h1>
 <table border="0" cellpadding="5" cellspacing="3">
 <tr align="left">
 	<th style="width:10%">Loglevel</th>
@@ -17,152 +17,437 @@ h1 {font:normal 11pt Tahoma;}
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Ken Harush is looking for asset for1</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Paula Bitton is looking for asset for3</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Ken Harush found an asset! asset nameAsset 11</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Wolfgang Eisenkott is looking for asset for10</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Ken Harush is going to sleep for48</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Paula Bitton found an asset! asset nameAsset 53</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott is looking for asset for3</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Paula Die is looking for asset for12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Wolfgang Eisenkott found an asset! asset nameAsset 410</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton is looking for asset for10</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Paula Bitton is going to sleep for30</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton found an asset! asset nameAsset 410</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Leonidas I is looking for asset for14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Paula Die couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:12</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton is going to sleep for40</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott found an asset! asset nameAsset 53</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Leonidas I couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Wolfgang Eisenkott is going to sleep for40</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott is going to sleep for30</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Paula Bitton finished dealing with rentalrequest 3</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Paula Bitton finished his shift! sleeping</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott finished dealing with rentalrequest 3</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Ken Harush finished dealing with rentalrequest 1</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Ken Harush finished his shift! sleeping</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton finished dealing with rentalrequest 10</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Wolfgang Eisenkott finished dealing with rentalrequest 10</td>
-</tr>
-<tr>
-	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Wolfgang Eisenkott finished his shift! sleeping</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Paula Die has woke up! Rental Request:12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Leonidas I has woke up! Rental Request:14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Paula Die couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Leonidas I couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:14</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I found an asset! asset nameAsset 414</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I is going to sleep for40</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Paula Die has woke up! Rental Request:12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Leonidas I has woke up! Rental Request:14</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerk Leonidas I couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:14</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I finished dealing with rentalrequest 14</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die has woke up! Rental Request:12</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Paula Die found an asset! asset nameAsset 112</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Paula Die is going to sleep for48</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Paula Die finished dealing with rentalrequest 12</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die is looking for asset for11</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott is looking for asset for15</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton is looking for asset for2</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I is looking for asset for13</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush is looking for asset for4</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die found an asset! asset nameAsset 211</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush found an asset! asset nameAsset 54</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die is going to sleep for54</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:15</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush is going to sleep for30</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton found an asset! asset nameAsset 32</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I found an asset! asset nameAsset 113</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton is going to sleep for42</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I is going to sleep for48</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush finished dealing with rentalrequest 4</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton finished dealing with rentalrequest 2</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I finished dealing with rentalrequest 13</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die finished dealing with rentalrequest 11</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott has woke up! Rental Request:15</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott couldn't find an asset so he goes to sleep untill a new asset will show up! Rental Request:15</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott has woke up! Rental Request:15</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott found an asset! asset nameAsset 215</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott is going to sleep for54</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott finished dealing with rentalrequest 15</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott is looking for asset for5</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott found an asset! asset nameAsset 55</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott is going to sleep for30</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott finished dealing with rentalrequest 5</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Wolfgang Eisenkott finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush is looking for asset for6</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush found an asset! asset nameAsset 56</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush is going to sleep for30</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush finished dealing with rentalrequest 6</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Ken Harush finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton is looking for asset for7</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton found an asset! asset nameAsset 57</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton is going to sleep for30</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton finished dealing with rentalrequest 7</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Bitton finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I is looking for asset for8</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I found an asset! asset nameAsset 58</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I is going to sleep for30</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I finished dealing with rentalrequest 8</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Leonidas I finished his shift! sleeping</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die is looking for asset for9</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die found an asset! asset nameAsset 59</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die is going to sleep for30</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
+	<td>Clerk Paula Die finished dealing with rentalrequest 9</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:52</td>
 	<td>Clerk Paula Die finished his shift! sleeping</td>
 </tr>
 </table>

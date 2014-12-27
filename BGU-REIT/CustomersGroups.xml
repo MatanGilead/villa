@@ -116,25 +116,25 @@
 					<Name>Customer 1</Name>
 					<Vandalism>Arbitrary</Vandalism>
 					<MinimumDamage>5</MinimumDamage>
-					<MaximumDamage>10</MaximumDamage>
+					<MaximumDamage>8</MaximumDamage>
 				</Customer>
 				<Customer>
 					<Name>Customer 2</Name>
 					<Vandalism>Arbitrary</Vandalism>
 					<MinimumDamage>5</MinimumDamage>
-					<MaximumDamage>10</MaximumDamage>
+					<MaximumDamage>8</MaximumDamage>
 				</Customer>
 				<Customer>
 					<Name>Customer 3</Name>
 					<Vandalism>Arbitrary</Vandalism>
 					<MinimumDamage>5</MinimumDamage>
-					<MaximumDamage>10</MaximumDamage>
+					<MaximumDamage>7</MaximumDamage>
 				</Customer>
 				<Customer>
 					<Name>Customer 4</Name>
 					<Vandalism>Arbitrary</Vandalism>
 					<MinimumDamage>5</MinimumDamage>
-					<MaximumDamage>10</MaximumDamage>
+					<MaximumDamage>7</MaximumDamage>
 				</Customer>
 			</Customers>
 			<RentalRequests>
