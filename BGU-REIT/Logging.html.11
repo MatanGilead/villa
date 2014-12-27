@@ -8,7 +8,7 @@ h1 {font:normal 11pt Tahoma;}
 </style>
 </head>
 <body>
-<h1>Tue Dec 23 01:16:57 IST 2014</h1>
+<h1>Sat Dec 27 22:37:42 IST 2014</h1>
 <table border="0" cellpadding="5" cellspacing="3">
 <tr align="left">
 	<th style="width:10%">Loglevel</th>
@@ -17,14 +17,51 @@ h1 {font:normal 11pt Tahoma;}
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>BGU-REIT is in progress!</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Repairman start fixing assetAsset 1</td>
 </tr>
 <tr>
 	<td>INFO</td>
-	<td>Dec 23,2014 01:16</td>
-	<td>Clerks shift has started!</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Repairman start fixing assetAsset 4</td>
 </tr>
-</table>
-</body>
-</html>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Tools has been qcquired by the RepairMan to fix assetAsset 1</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Materials has been qcquired by the RepairMan to fix assetAsset 1</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Simulating fix for assetAsset 1  by sleeping 1408.7416767536477</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Tools has been qcquired by the RepairMan to fix assetAsset 4</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Repairman ended fixing assetAsset 1</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Materials has been qcquired by the RepairMan to fix assetAsset 4</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Simulating fix for assetAsset 4  by sleeping 752.3193858178314</td>
+</tr>
+<tr>
+	<td>INFO</td>
+	<td>Dec 27,2014 22:37</td>
+	<td>Repairman ended fixing assetAsset 4</td>
+</tr>
