@@ -15,8 +15,8 @@ public class MyLogger {
 			try {
 				fileHTML = new FileHandler("Logging.html");
 				fileHTML.setFormatter(formatterHTML);
-				Logger.getGlobal().setLevel(Level.INFO);
-				Logger.getGlobal().addHandler(fileHTML);
+				Logger.getLogger("").setLevel(Level.INFO);
+				Logger.getLogger("").addHandler(fileHTML);
 			} catch (SecurityException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
