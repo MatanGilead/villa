@@ -14,18 +14,21 @@ public class MyLogger {
 		if (fileHTML == null) {
 			try {
 				fileHTML = new FileHandler("Logging.html");
+				fileHTML.setFormatter(formatterHTML);
+				Logger.getGlobal().setLevel(Level.INFO);
+				Logger.getGlobal().addHandler(fileHTML);
 			} catch (SecurityException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				System.out.println("ee");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
+				System.out.println("ee");
 				e.printStackTrace();
 			}
 		}
 		Logger logger = Logger.getLogger(myClass);
-		fileHTML.setFormatter(formatterHTML);
-		logger.addHandler(fileHTML);
-		logger.setLevel(Level.INFO);
+		logger.setUseParentHandlers(true);
 		return logger;
   }
 }
