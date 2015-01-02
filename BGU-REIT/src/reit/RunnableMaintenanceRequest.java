@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Logger;
 
-public class RunnableMaintenanceRequest implements Runnable {
+class RunnableMaintenanceRequest implements Runnable {
 
 	private HashMap<String, ArrayList<RepairMaterialInformation>> fRepairMaterialsInfo;
 	private HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo;
@@ -23,7 +23,7 @@ public class RunnableMaintenanceRequest implements Runnable {
 
 
 
-	public RunnableMaintenanceRequest(
+	RunnableMaintenanceRequest(
 			HashMap<String, ArrayList<RepairMaterialInformation>> fRepairMaterialsInfo,
 			HashMap<String, ArrayList<RepairToolInformation>> fRepairToolsInfo,
 			Asset fAsset, Warehouse fWarehouse, Semaphore fMaintancePersons,

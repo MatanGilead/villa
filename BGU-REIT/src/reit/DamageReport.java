@@ -1,6 +1,6 @@
 package reit;
 
-public class DamageReport {
+class DamageReport {
 	private Asset fAsset;
 	private double fDamagePercentage;
 
@@ -11,7 +11,7 @@ public class DamageReport {
 	 * @param damagePercentage
 	 *            the damage that needed to be added to the asset.
 	 */
-	public DamageReport(Asset asset, double damagePercentage) {
+	DamageReport(Asset asset, double damagePercentage) {
 		fDamagePercentage = damagePercentage;
 		fAsset = asset;
 	}
@@ -21,7 +21,7 @@ public class DamageReport {
 	 * 
 	 * @return asset
 	 */
-	 public Asset getAsset() {
+	Asset getAsset() {
 	 return fAsset;
 	 }
 
@@ -31,8 +31,7 @@ public class DamageReport {
 	 * @return the damage.
 	 */
 
-	public boolean runReportImplications() {
+	boolean runReportImplications() {
 		return fAsset.reduceHealth(fDamagePercentage);
-
 	}
 }

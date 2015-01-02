@@ -1,6 +1,6 @@
 package reit;
 
-public class Location {
+class Location {
 private int fX;
 private int fY;
 
@@ -9,7 +9,7 @@ private int fY;
  * @param fX x x coordinate.
  *@param y y coordinate.
  */
-public Location(int x, int y){
+	Location(int x, int y) {
 	fX=x;
 	fY=y;
 }
@@ -21,7 +21,7 @@ public Location(int x, int y){
 	 *            the other Location to do the measure.
 	 * @return the euclidean distance.
 	 */
-	public double CalculateDistance(Location other) {
+	double CalculateDistance(Location other) {
 	return Math.sqrt(Math.pow(fX-other.fX,2)+Math.pow(fY-other.fY,2));
 }
 	

@@ -1,10 +1,8 @@
 package reit;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
-public class Assets {
+class Assets {
 
 	/**
 	 * @param fAssets
@@ -12,10 +10,11 @@ public class Assets {
 	 */
 	private ArrayList<Asset> fAssets;
 
-	public Assets() {
+	Assets() {
 		fAssets = new ArrayList<Asset>();
 	}
-	public ArrayList<Asset> damagedAssets() { 
+
+	ArrayList<Asset> damagedAssets() {
 		return null;
 	}
 
@@ -29,7 +28,7 @@ public class Assets {
 	 *            setFound(rentalRequest) method.
 	 * @return if an asset has been found - return it. else null.
 	 */
-	public Asset find(RentalRequest request) {
+	Asset find(RentalRequest request) {
 		for (Asset assaet : fAssets)
 			// print
 			System.out.println(assaet.isAvailable() + "     "
@@ -73,7 +72,7 @@ public class Assets {
 	/**
 	 * Add an asset to the collection, Call from management.;
 	 */
-	public void addAsset (Asset asset){
+	void addAsset(Asset asset) {
 		fAssets.add(asset);
 	}
 
@@ -81,7 +80,7 @@ public class Assets {
 	 * 
 	 * @return returns an ArrayList of damaged assets
 	 */
-	public ArrayList<Asset> getBroken() {
+	ArrayList<Asset> getBroken() {
 		// TODO Auto-generated method stub
 		 ArrayList<Asset> brokenList=new ArrayList<Asset>();
 		 for(Asset borkenAsset: fAssets){
@@ -106,15 +105,6 @@ public class Assets {
 
 		}
 
-	protected void sort(){
-		Collections.sort(fAssets, new Comparator<Asset>(){
-			public int compare(Asset s1, Asset s2) {
-				  if (s1.getAssetSize()>s2.getAssetSize()) return 1;
-				else
-					return -1;
-			 }
-		});
-	}
 
 
 

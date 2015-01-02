@@ -13,7 +13,7 @@ public class CustomerGroupDetails {
 	 * @param name
 	 *            name of the group manager.
 	 */
-	CustomerGroupDetails(String name) {
+	public CustomerGroupDetails(String name) {
 		fRentalRequests = new ArrayList<RentalRequest>();
 		fCustomers = new ArrayList<Customer>();
 		fGroupManagerName = name;
@@ -24,12 +24,14 @@ public class CustomerGroupDetails {
 	 * 
 	 * @param customer
 	 */
-	public void addCustomer(Customer customer) {
-		//add customer to the Customers collection
-		fCustomers.add(customer);
+	public void addCustomer(String name, String vandalism, byte minimumDamage,
+			byte maximumDamage) {
+		fCustomers.add(new Customer(name, vandalism, minimumDamage,
+				maximumDamage));
+
 	}
 
-	public boolean isEmptyRentalRequest() {
+	boolean isEmptyRentalRequest() {
 		return fRentalRequests.isEmpty();
 	}
 	/**
@@ -38,17 +40,18 @@ public class CustomerGroupDetails {
 	 * @param rentalRequest
 	 *            rental request
 	 */
-	public void addRentalRequest(RentalRequest rentalRequest) {
-		//add rentalRequest to the RentalRequests collection
-		fRentalRequests.add(rentalRequest);
-	}
 	
+	public void addRentalRequest(Byte id, String type, byte size, byte duration) {
+		fRentalRequests.add(new RentalRequest(id, type, size, duration));
+
+	}
+
 	/**
 	 * remove the first rental request from the collection and return it.
 	 * 
 	 * @return RentalRequest
 	 */
-	public RentalRequest sendRentalRequest(){
+	RentalRequest sendRentalRequest() {
 	  RentalRequest newRequest = fRentalRequests.remove(0);
 	  return newRequest;
 	}
@@ -58,7 +61,7 @@ public class CustomerGroupDetails {
 	 * 
 	 * @return
 	 */
-	public ArrayList<Customer> getCustomers(){
+	ArrayList<Customer> getCustomers() {
 		return fCustomers;
 	}
 
@@ -67,17 +70,19 @@ public class CustomerGroupDetails {
 	 * 
 	 * @return
 	 */
-	public String getGroupManagerName() {
+	String getGroupManagerName() {
 		return fGroupManagerName;
 	}
 
-	public int getNumberOfCustomersInGroup(){
+	int getNumberOfCustomersInGroup() {
 		return fCustomers.size();
 	}
 
-	public Customer getCustomer(int index){
+	Customer getCustomer(int index) {
 		return fCustomers.get(index);
 	}
+
+
 
 
 }

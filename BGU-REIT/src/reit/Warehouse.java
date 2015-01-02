@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-public class Warehouse {
+class Warehouse {
 	private HashMap<String, RepairMaterial> materials;
 	private HashMap<String, RepairTool> tools;
 
@@ -28,7 +28,7 @@ public class Warehouse {
 	 *            required tools by repair man, needed to be ordered
 	 *            lexicographically.
 	 */
-	public void AcquireTool(TreeMap<String, Integer> requiredTools) {
+	void AcquireTool(TreeMap<String, Integer> requiredTools) {
 		boolean hasItems = false;
 		while(hasItems==false){
 			hasItems=true;
@@ -71,7 +71,7 @@ public class Warehouse {
 		}
 
 
-	public void ReleaseTool(TreeMap<String, Integer> returnTools) {
+	void ReleaseTool(TreeMap<String, Integer> returnTools) {
 		for (Entry<String, Integer> tool : returnTools.entrySet()) {
 			RepairTool currentTool = tools.get(tool.getKey());
 			synchronized (currentTool) {
@@ -83,7 +83,7 @@ public class Warehouse {
 
 
 
-	public void AcquireMaterial(TreeMap<String, Integer> requiredMaterials) {
+	void AcquireMaterial(TreeMap<String, Integer> requiredMaterials) {
 		for (Entry<String, Integer> material : requiredMaterials.entrySet()) {
 			RepairMaterial currentMaterial = materials.get(material.getKey());
 			synchronized (currentMaterial) {
@@ -93,12 +93,12 @@ public class Warehouse {
 	}
 
 
-	public void addTool(RepairTool tool) {
+	void addTool(RepairTool tool) {
 		tools.put(tool.getName(), tool);
 	}
 
 
-	public void addMaterial(RepairMaterial material) {
+	void addMaterial(RepairMaterial material) {
 		materials.put(material.getName(), material);
 
 	}

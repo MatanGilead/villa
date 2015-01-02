@@ -13,15 +13,17 @@ public class Asset {
 	private int fSize;
 	private double fHealth; // beteen 0 to 100, including edges
 
-	public Asset(String name,String type,Location location,String status,int costPetInt,int size){
+	public Asset(String name, String type, int xNum, int yNum, String status,
+			int costPetInt, int size) {
 		//constructor with parameters
 		fName=name;
 		fType=type;
-		fLocation=location;
+		fLocation = new Location(xNum, yNum);
 		fAssetContent = new ArrayList<AssetContent>() ;
 		fStatus=status;
 		fSize=size;	
 		fHealth = 100;
+		fCostPerInt = costPetInt;
 	}
 	
 	/**
@@ -29,20 +31,24 @@ public class Asset {
 	 * 
 	 * @return the location.
 	 */
-	public Location getLocation(){
+	Location getLocation() {
 		//return location
 		return fLocation;
 	}
 
 	/**
-	 * Add's an AssetContent to the AssetContent list.
+	 * Creates an AssetContent and add it to the AssetContent list.
 	 * 
-	 * @param assetContent
-	 *            assetContent the content.
+	 * @param name
+	 *            name of assetContent.
+	 * 
+	 * @param repairMultiplier
+	 *            asset multiplier
 	 */
-	public void addAssetContent(AssetContent assetContent){
-		//add asset content to the asset content collection
-		fAssetContent.add(assetContent);
+
+	public void addAssetContent(String name, float repairMultiplier) {
+		fAssetContent.add(new AssetContent(name, repairMultiplier));
+
 	}
 
 	/**
@@ -165,5 +171,6 @@ public class Asset {
 	public double getHealth() {
 		return fHealth;
 	}
+
 	}
 

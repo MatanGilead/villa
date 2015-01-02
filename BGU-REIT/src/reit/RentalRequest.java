@@ -1,9 +1,9 @@
 package reit;
 
-public class RentalRequest {
+class RentalRequest {
 	private int fId;
 	private String fAssetType;
-	private double fAssetSize;
+	private int fAssetSize;
 	private int fDurationOfStay;
 	private Asset fAsset;
 	private String fRequestStatus;
@@ -20,7 +20,7 @@ public class RentalRequest {
 	 * @param durationOfStay
 	 *            the days requested.
 	 */
-	public RentalRequest(int id, String assetType, double assetSize,
+	RentalRequest(int id, String assetType, int assetSize,
 			int durationOfStay) {
 		this.fId = id;
 		this.fAssetType = assetType;
@@ -36,7 +36,7 @@ public class RentalRequest {
 	 * 
 	 * @param state
 	 */
-	public void setRequestStatus(String state) {
+	void setRequestStatus(String state) {
 		fRequestStatus = state;
 	}
 
@@ -45,7 +45,7 @@ public class RentalRequest {
 	 * 
 	 * @param foundOne
 	 */
-	public void setAsset(Asset foundOne) {
+	void setAsset(Asset foundOne) {
 		fAsset = foundOne;
 
 	}
@@ -55,7 +55,7 @@ public class RentalRequest {
 	 * 
 	 * @return type
 	 */
-	public String getRentalRequestStatus() {
+	String getRentalRequestStatus() {
 		return fRequestStatus;
 	}
 
@@ -64,7 +64,7 @@ public class RentalRequest {
 	 * 
 	 * @return id
 	 */
-	public int getId() {
+	int getId() {
 		return fId;
 	}
 
@@ -73,7 +73,7 @@ public class RentalRequest {
 	 * 
 	 * @return days.
 	 */
-	public int getDurationOfStay() {
+	int getDurationOfStay() {
 		return fDurationOfStay;
 	}
 
@@ -82,7 +82,7 @@ public class RentalRequest {
 	 * 
 	 * @return size
 	 */
-	public double getAssetSize() {
+	int getAssetSize() {
 		return fAssetSize;
 	}
 
@@ -91,17 +91,24 @@ public class RentalRequest {
 	 * 
 	 * @return type
 	 */
-	public String getAssetType() {
+	String getAssetType() {
 		return fAssetType;
 	}
 	
-	public String getAssetName(){
+	String getAssetName() {
 		//use this function only when a suitable asset is found (asset is not null)
 		return fAsset.getName();
 	}
 
-	public Asset getAsset() {
+	Asset getAsset() {
 		return fAsset;
 	}
 
+	@Override
+	public String toString(){
+		return new String("Rental Request  " + fId + " requires: " + fAssetType
+				+ " at size " + fAssetSize + ", for " + fDurationOfStay
+				+ " nights, is at status " + fRequestStatus)
+				+ "\n";
+	}
 }

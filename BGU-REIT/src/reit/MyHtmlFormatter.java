@@ -11,7 +11,7 @@ import java.util.logging.LogRecord;
 class MyHtmlFormatter extends Formatter {
 	// this method is called for every log records
 	public String format(LogRecord rec) {
-		StringBuffer buf = new StringBuffer(1000);
+		StringBuffer buf = new StringBuffer();
 		buf.append("<tr>\n");
 
 		// colorize any levels >= WARNING in red
@@ -47,10 +47,10 @@ class MyHtmlFormatter extends Formatter {
 	// this method is called just after the handler using this
 	// formatter is created
 	public String getHead(Handler h) {
-		return "<!DOCTYPE html>\n<head>\n<style" + "type=\"text/css\">\n"
+		return "<!DOCTYPE html>\n<head>\n<style" + " type=\"text/css\">\n"
 				+ "table { width: 100% }\n" + "th { font:bold 10pt Tahoma; }\n"
-				+ "td { font:normal 10pt Tahoma; }\n"
-				+ "h1 {font:normal 11pt Tahoma;}\n" + "</style>\n"
+				+ "td { font:normal 14pt Tahoma; }\n"
+				+ "h1 {font:normal 15pt Tahoma;}\n" + "</style>\n"
 				+ "</head>\n" + "<body>\n" + "<h1>" + (new Date()) + "</h1>\n"
 				+ "<table border=\"0\" cellpadding=\"5\" cellspacing=\"3\">\n"
 				+ "<tr align=\"left\">\n"

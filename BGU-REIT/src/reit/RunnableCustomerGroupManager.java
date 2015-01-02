@@ -1,44 +1,28 @@
 package reit;
 
-import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
-public class RunnableCustomerGroupManager implements Runnable {
+class RunnableCustomerGroupManager implements Runnable {
 
 	private CustomerGroupDetails fCustomerGroupDetails;
 	private BlockingQueue<RentalRequest> fRentalRequests;
-	private ArrayList<DamageReport> fDamageReports;
-	private Assets fAssets;
-	private ArrayList<ClerkDetails> fClerkList;
-	private Statistics fStatistics;
 	private Logger logger;
-	private AtomicBoolean fKillClerks;
-	private CountDownLatch fCountDownLatch;
-	private Semaphore fMaintenceThreadsCount;
-	public RunnableCustomerGroupManager(CustomerGroupDetails customerGroupD,
-			BlockingQueue<RentalRequest> rentalRequests, Assets assets,
-			ArrayList<ClerkDetails> clerkList, Statistics statistics,
-			CountDownLatch CountDownLatch, AtomicBoolean killClerks,
-			Semaphore MaintenceThreadsCount) {
+	private Management fManagement;
+
+	RunnableCustomerGroupManager(CustomerGroupDetails customerGroupD,
+			BlockingQueue<RentalRequest> rentalRequests, Management management) {
 	fCustomerGroupDetails=customerGroupD;
 	fRentalRequests=rentalRequests;
-	fAssets=assets;
-	fClerkList=clerkList;
-		fStatistics = statistics;
+		fManagement = management;
 		logger = MyLogger.getLogger("RunnableCustomerGroupManager");
-		fCountDownLatch = CountDownLatch;
-		fKillClerks = killClerks;
-		fMaintenceThreadsCount = MaintenceThreadsCount;
+
 	}
 	
 	@Override
@@ -54,14 +38,16 @@ public class RunnableCustomerGroupManager implements Runnable {
 			}
 		logger.info(fCustomerGroupDetails.getGroupManagerName() + "recieves an asset");
 		Asset usedAsset = newRentalRequest.getAsset();
-		usedAsset.setOccupied(); //update asset status
+			synchronized (usedAsset) {
+				usedAsset.setOccupied(); // update asset status
+			}
 		newRentalRequest.setRequestStatus("INPROGRESS"); //update request status
 		logger.info(fCustomerGroupDetails.getGroupManagerName() + "start staying process");
 		double totalAssetDamage = SimulateStayInAsset(newRentalRequest);
 		DamageReport newDamageReport = new DamageReport(usedAsset,
 		totalAssetDamage); // create new damage report
 			// fDamageReports.add(newDamageReport);
-		FixAsset(newDamageReport, newRentalRequest);
+			fManagement.FixAsset(newDamageReport, newRentalRequest);
 			logger.info(fCustomerGroupDetails.getGroupManagerName()
 					+ "group has left the asset" + "   " + usedAsset.getName()
 					+ " damage:" + totalAssetDamage);
@@ -117,32 +103,7 @@ public class RunnableCustomerGroupManager implements Runnable {
 
 	}
 
-	public void FixAsset(DamageReport report, RentalRequest rentalRequest) {
-		boolean stillGood = report.runReportImplications();
-		fStatistics.addDamageReport(report, rentalRequest);
 
-		if (stillGood) {
-			for (ClerkDetails clerk : fClerkList) {
-				synchronized (clerk) {
-					clerk.notifyAll();
-					}
-			}
-			fCountDownLatch.countDown();
-		}
-			else{
-				synchronized(rentalRequest.getAsset()){
-					rentalRequest.getAsset().notifyAll();
-				}
-			}
-
-
-
-		System.out.println(fKillClerks);
-				System.out.println(fCountDownLatch.getCount());
-
-
-		
-	}
 
 }
 

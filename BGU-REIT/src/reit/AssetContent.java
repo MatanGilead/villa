@@ -1,7 +1,7 @@
 package reit;
 
 
-public class AssetContent {
+class AssetContent {
 	private String fName;
 	private double fRepairCostMultiplyer;
 
@@ -10,7 +10,7 @@ public class AssetContent {
 	 * @param name the name of the asset content.
 	 * @param repairCostMultiplyer cost measure.
 	 */
-	public AssetContent(String name, double repairCostMultiplyer){
+	AssetContent(String name, double repairCostMultiplyer) {
 		fName=name;
 		fRepairCostMultiplyer= repairCostMultiplyer;
 	}
@@ -19,7 +19,7 @@ public class AssetContent {
 	 * Return the name;
 	 * @return the name;
 	 */
-	public String getName() {
+	String getName() {
 		return fName;
 	}
 
@@ -28,7 +28,7 @@ public class AssetContent {
 	 * 
 	 * @return the multiplier;
 	 */
-	public double getMultiplier() {
+	double getMultiplier() {
 		return fRepairCostMultiplyer;
 	}
 	

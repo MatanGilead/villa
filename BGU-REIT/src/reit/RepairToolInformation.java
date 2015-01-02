@@ -1,26 +1,26 @@
 package reit;
 
 
-public class RepairToolInformation {
+class RepairToolInformation {
 	private String fName;
 	private int fQuantity;
 
-	public RepairToolInformation(String name){
+	RepairToolInformation(String name) {
 		fName = name;
 		fQuantity = 0;
 		
 	}
 	
-	public RepairToolInformation(String name, int quantity) {
+	RepairToolInformation(String name, int quantity) {
 		fName = name;
 		fQuantity = quantity;
 	}
 
-	public String getName() {
+	String getName() {
 		return fName;
 	}
 
-	public int getQuantity() {
+	int getQuantity() {
 		return fQuantity;
 	}
 }

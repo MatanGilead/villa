@@ -1,10 +1,10 @@
 package reit;
 
-public class ClerkDetails {
+class ClerkDetails {
 	private String fName;
 	private Location fLocation;
 
-	public ClerkDetails(String name, Location location) {
+	ClerkDetails(String name, Location location) {
 		//constructor with parameters
 		fName = name;
 		fLocation = location;
@@ -15,7 +15,7 @@ public class ClerkDetails {
 	 * 
 	 * @return name
 	 */
-	public String getName() {
+	String getName() {
 		//return name
 		return fName;
 	}
@@ -25,7 +25,7 @@ public class ClerkDetails {
 	 * 
 	 * @return location.
 	 */
-	public Location getLocation(){
+	Location getLocation() {
 		//return location
 		return fLocation;
 	}

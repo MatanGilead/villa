@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
-public class RunnableClerk implements Runnable {
+class RunnableClerk implements Runnable {
 	ClerkDetails fClerkDetails;
 	private BlockingQueue<RentalRequest> fRentalRequests;
 	private Assets fAssets;
@@ -17,8 +17,8 @@ public class RunnableClerk implements Runnable {
 	private CyclicBarrier fNewShift;
 	private AtomicBoolean killClerks;
 	private int fSleepTime;
-	private boolean fSlept;
-	public RunnableClerk(ClerkDetails ClerkDetails,
+
+	RunnableClerk(ClerkDetails ClerkDetails,
 			BlockingQueue<RentalRequest> RentalRequests, Assets Assets,
 			AtomicInteger NumRentalRequests, Object Lock,
 			CyclicBarrier NewShift, AtomicBoolean needToGo) {
@@ -28,7 +28,6 @@ public class RunnableClerk implements Runnable {
 		fNumRentalRequests = NumRentalRequests;
 		fLock = Lock;
 		fNewShift = NewShift;
-		fSlept = false;
 		fSleepTime = 0;
 		logger = MyLogger.getLogger("RunnableClerk");
 		killClerks = needToGo;
@@ -38,7 +37,6 @@ public class RunnableClerk implements Runnable {
 	public void run() {
 
 		while (fNumRentalRequests.get() != 0) {
-			fSlept = false;
 			RentalRequest rentalRequest=takeRequest(); //and update the that request have been taking care of
 			if(rentalRequest==null) {
 				endDay();	//no need for a clerk
@@ -96,7 +94,6 @@ public class RunnableClerk implements Runnable {
 		if (fSleepTime >= 8 || fNumRentalRequests.get() == 0) {
 			if(fSleepTime >= 8) logger.info("Clerk "+ fClerkDetails.getName()+" finished his shift! sleeping");
 			try {
-				fSlept = true;
 				fSleepTime = 0;
 				fNewShift.await();
 			} catch (InterruptedException e) {
@@ -129,7 +126,7 @@ public class RunnableClerk implements Runnable {
 		fSleepTime = fSleepTime + 2 * distance;
 		logger.info("Clerk "+fClerkDetails.getName()+" is going to sleep for"+2*distance);
 		try {
-			Thread.sleep(2 * distance);// *1000
+			Thread.sleep(2 * distance * 1000);//
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}

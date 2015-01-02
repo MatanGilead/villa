@@ -1,7 +1,7 @@
 package reit;
 
 
-public class RepairMaterialInformation {
+class RepairMaterialInformation {
 	private String fName;
 	private int fQuantity;
 	
@@ -13,7 +13,7 @@ public class RepairMaterialInformation {
 	 * @param count
 	 *            quantity of material.
 	 */
-	public RepairMaterialInformation(String name, int quantity) {
+	RepairMaterialInformation(String name, int quantity) {
 		fName= name;
 		fQuantity = quantity;
 	}
@@ -23,7 +23,7 @@ public class RepairMaterialInformation {
 	 * 
 	 * @return name.
 	 */
-	public String getName() {
+	String getName() {
 		return fName;
 	}
 
@@ -33,7 +33,7 @@ public class RepairMaterialInformation {
 	 * @return quantity.
 	 */
 
-	public int getQuantity() {
+	int getQuantity() {
 		return fQuantity;
 	}
 }

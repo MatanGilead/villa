@@ -6,31 +6,35 @@ import java.util.TreeMap;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Statistics {
+class Statistics {
 	private AtomicInteger fMoneyGained;
 	private Vector<RentalRequest> fRentals;
 	private HashMap<String, AtomicInteger> fRepairMaterials;
 	private HashMap<String, AtomicInteger> fRepairTools;
 
-	public Statistics() {
+	Statistics() {
 		fMoneyGained = new AtomicInteger();
 		fRentals = new Vector<RentalRequest>();
 		fRepairMaterials = new HashMap<String, AtomicInteger>();
 		fRepairTools = new HashMap<String, AtomicInteger>();
 	}
 
-	protected void print() {
+	void print() {
 
 		StringBuilder printer = new StringBuilder();
+		printer.append("Rental Requests:\n");
 		for (RentalRequest rentalRequest : fRentals)
 			printer.append(rentalRequest);
+		printer.append("\nRepair Materials for the process:\n");
 		printer.append(fRepairMaterials);
+		printer.append("\nRepair Tools for the process:\n");
 		printer.append(fRepairTools);
+		printer.append("\nTotal gain:\n");
 		printer.append(fMoneyGained);
 		System.out.println(printer);
 	}
 
-	public void addMaterials(TreeMap<String, Integer> allRequiredMaterials) {
+	void addMaterials(TreeMap<String, Integer> allRequiredMaterials) {
 		for (Entry<String, Integer> set : allRequiredMaterials.entrySet()) {
 			boolean containsKey = fRepairMaterials.containsKey(set.getKey());
 			synchronized (fRepairMaterials) {
@@ -44,7 +48,7 @@ public class Statistics {
 		}
 	}
 
-	public void addTools(TreeMap<String, Integer> allRequiredTools) {
+	void addTools(TreeMap<String, Integer> allRequiredTools) {
 		for (Entry<String, Integer> set : allRequiredTools.entrySet()) {
 			boolean containsKey = fRepairTools.containsKey(set.getKey());
 			synchronized (fRepairTools) {
@@ -57,8 +61,10 @@ public class Statistics {
 		}
 	}
 
-	public void addDamageReport(DamageReport report, RentalRequest rentalRequest) {
-		fMoneyGained.addAndGet(report.getAsset().getCostPerInt()*rentalRequest.getDurationOfStay());
+	void addDamageReport(DamageReport report, RentalRequest rentalRequest) {
+		fMoneyGained.addAndGet(report.getAsset().getCostPerInt()
+				* rentalRequest.getDurationOfStay()
+				* rentalRequest.getAssetSize());
 		fRentals.add(rentalRequest);
 
 	}
