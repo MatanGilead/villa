@@ -31,10 +31,15 @@ class MyHtmlFormatter extends Formatter {
 		buf.append(calcDate(rec.getMillis()));
 		buf.append("</td>\n");
 		buf.append("\t<td>");
+		buf.append(rec.getSourceClassName());
+		buf.append("</td>\n");
+		buf.append("\t<td>");
+		buf.append(rec.getSourceMethodName());
+		buf.append("</td>\n");
+		buf.append("\t<td>");
 		buf.append(formatMessage(rec));
 		buf.append("</td>\n");
 		buf.append("</tr>\n");
-
 		return buf.toString();
 	}
 
@@ -56,6 +61,8 @@ class MyHtmlFormatter extends Formatter {
 				+ "<tr align=\"left\">\n"
 				+ "\t<th style=\"width:10%\">Loglevel</th>\n"
 				+ "\t<th style=\"width:15%\">Time</th>\n"
+				+ "\t<th style=\"width:10%\">Source Class</th>\n"
+				+ "\t<th style=\"width:10%\">Function</th>\n"
 				+ "\t<th style=\"width:75%\">Log Message</th>\n" + "</tr>\n";
 	}
 
